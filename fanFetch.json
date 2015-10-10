@@ -391,7 +391,7 @@
 			"venueAdmin",
                         "eventAdmin",
                         "vendorAdmin",
-                        "user",
+                        "user"
 		],
 		"use_collection2": true,
 		"free_zone": {
