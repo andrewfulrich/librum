@@ -19,8 +19,10 @@ var privateRoutes = [
 	"user_settings",
 	"user_settings.profile",
 	"user_settings.change_pass",
+	"user_settings.payment_methods",
 	"logout",
-	"events"
+	"events",
+	"products_menu"
 ];
 
 var freeRoutes = [
@@ -183,6 +185,8 @@ Router.map(function () {
 	this.route("user_settings", {path: "/user_settings", controller: "UserSettingsController"});
 	this.route("user_settings.profile", {path: "/user_settings/profile", controller: "UserSettingsProfileController"});
 	this.route("user_settings.change_pass", {path: "/user_settings/change_pass", controller: "UserSettingsChangePassController"});
+	this.route("user_settings.payment_methods", {path: "/user_settings/payment_methods", controller: "UserSettingsPaymentMethodsController"});
 	this.route("logout", {path: "/logout", controller: "LogoutController"});
 	this.route("events", {path: "/events", controller: "EventsController"});
+	this.route("products_menu", {path: "/products_menu", controller: "ProductsMenuController"});
 });
