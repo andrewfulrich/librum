@@ -157,6 +157,10 @@
 			{
 				"name": "eventsList",
 				"collection": "events"
+			},
+			{
+				"name": "products_list",
+				"collection": "products"
 			}
 		],
 		"public_zone": {
@@ -286,6 +290,11 @@
 							"name": "change_pass",
 							"template": "change_pass",
 							"type": "page"
+						},
+						{
+							"name": "payment_methods",
+							"title_icon_class": "Payment Methods",
+							"type": "page"
 						}
 					],
 					"components": [
@@ -301,6 +310,10 @@
 								{
 									"title": "Change password",
 									"route": "user_settings.change_pass"
+								},
+								{
+									"title": "Payment Methods",
+									"route": "user_settings.payment_methods"
 								}
 							]
 						}
@@ -320,6 +333,18 @@
 						{
 							"name": "events",
 							"query_name": "eventsList",
+							"type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "products_menu",
+					"title": "Menu",
+					"type": "page",
+					"components": [
+						{
+							"name": "menu_items",
+							"query_name": "products_list",
 							"type": "data_view"
 						}
 					]
@@ -364,9 +389,9 @@
 		},
 		"roles": [
 			"venueAdmin",
-			"eventAdmin",
-			"vendorAdmin",
-			"user"
+                        "eventAdmin",
+                        "vendorAdmin",
+                        "user",
 		],
 		"use_collection2": true,
 		"free_zone": {
