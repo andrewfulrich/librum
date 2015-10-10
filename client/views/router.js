@@ -19,7 +19,8 @@ var privateRoutes = [
 	"user_settings",
 	"user_settings.profile",
 	"user_settings.change_pass",
-	"logout"
+	"logout",
+	"events"
 ];
 
 var freeRoutes = [
@@ -183,4 +184,5 @@ Router.map(function () {
 	this.route("user_settings.profile", {path: "/user_settings/profile", controller: "UserSettingsProfileController"});
 	this.route("user_settings.change_pass", {path: "/user_settings/change_pass", controller: "UserSettingsChangePassController"});
 	this.route("logout", {path: "/logout", controller: "LogoutController"});
+	this.route("events", {path: "/events", controller: "EventsController"});
 });

@@ -363,7 +363,10 @@
 			"type": "zone"
 		},
 		"roles": [
-			"venueAdmin,eventAdmin,vendorAdmin,user"
+			"venueAdmin",
+			"eventAdmin",
+			"vendorAdmin",
+			"user"
 		],
 		"use_collection2": true,
 		"free_zone": {

@@ -38,3 +38,7 @@ accounts-password
 mrt:moment
 rajit:bootstrap3-datepicker
 mizzao:bootboxjs
+service-configuration
+accounts-google
+accounts-twitter
+perak:joins
