@@ -1,0 +1,376 @@
+{
+	"application": {
+		"title": "FanFetch",
+		"theme": "bootswatch-flatly",
+		"collections": [
+			{
+				"name": "events",
+				"type": "collection",
+				"roles_allowed_to_insert": [
+					"eventAdmin"
+				],
+				"roles_allowed_to_update": [
+					"eventAdmin"
+				],
+				"roles_allowed_to_delete": [
+					"eventAdmin"
+				],
+				"fields": [
+					{
+						"name": "eventName",
+						"title": "Event Name",
+						"type": "string"
+					},
+					{
+						"name": "venue",
+						"type": "string",
+						"join_collection": "venues"
+					},
+					{
+						"name": "eventImage",
+						"title": "Image",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "venues",
+				"type": "collection",
+				"roles_allowed_to_insert": [
+					"venueAdmin"
+				],
+				"roles_allowed_to_update": [
+					"venueAdmin"
+				],
+				"roles_allowed_to_delete": [
+					"venueAdmin"
+				],
+				"fields": [
+					{
+						"name": "venueName",
+						"title": "Venue Name",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "vendors",
+				"type": "collection",
+				"roles_allowed_to_insert": [
+					"vendorAdmin"
+				],
+				"roles_allowed_to_update": [
+					"vendorAdmin"
+				],
+				"roles_allowed_to_delete": [
+					"vendorAdmin"
+				],
+				"fields": [
+					{
+						"name": "vendorName",
+						"title": "Name",
+						"type": "string"
+					},
+					{
+						"name": "vendorImage",
+						"title": "Image",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "products",
+				"type": "collection",
+				"roles_allowed_to_insert": [
+					"vendorAdmin"
+				],
+				"roles_allowed_to_update": [
+					"vendorAdmin"
+				],
+				"roles_allowed_to_delete": [
+					"vendorAdmin"
+				],
+				"fields": [
+					{
+						"name": "productName",
+						"title": "Product Name",
+						"type": "string"
+					},
+					{
+						"name": "productVendor",
+						"title": "Vendor",
+						"type": "string",
+						"join_collection": "vendors"
+					},
+					{
+						"name": "productPrice",
+						"title": "Price",
+						"type": "float"
+					},
+					{
+						"name": "productImage",
+						"title": "Image",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "Orders",
+				"type": "collection",
+				"roles_allowed_to_read": [
+					"user"
+				],
+				"roles_allowed_to_insert": [
+					"user"
+				],
+				"roles_allowed_to_update": [
+					"user"
+				],
+				"roles_allowed_to_delete": [
+					"user"
+				],
+				"fields": [
+					{
+						"name": "productsOrdered",
+						"title": "Your Order",
+						"type": "array",
+						"join_collection": "products"
+					},
+					{
+						"name": "runner",
+						"title": "Runner",
+						"type": "string",
+						"join_collection": "users"
+					}
+				]
+			}
+		],
+		"queries": [
+			{
+				"name": "current_user_data",
+				"collection": "users",
+				"filter": {
+					"_id": "Meteor.userId()"
+				},
+				"find_one": true
+			},
+			{
+				"name": "eventsList",
+				"collection": "events"
+			}
+		],
+		"public_zone": {
+			"navbar_class": "navbar-inverse navbar-fixed-top",
+			"pages": [
+				{
+					"name": "home_public",
+					"type": "page",
+					"template": "login"
+				},
+				{
+					"name": "login",
+					"template": "login",
+					"type": "page"
+				},
+				{
+					"name": "register",
+					"template": "register",
+					"type": "page"
+				},
+				{
+					"name": "forgot_password",
+					"template": "forgot_password",
+					"type": "page"
+				},
+				{
+					"name": "reset_password",
+					"template": "reset_password",
+					"route_params": [
+						"resetPasswordToken"
+					],
+					"type": "page"
+				}
+			],
+			"components": [
+				{
+					"name": "left_menu",
+					"type": "menu",
+					"class": "nav navbar-nav",
+					"dest_selector": "#menu",
+					"items": [
+						{
+							"title": "Home",
+							"route": "home_public"
+						}
+					]
+				},
+				{
+					"name": "right_menu",
+					"type": "menu",
+					"class": "nav navbar-nav navbar-right",
+					"dest_selector": "#menu",
+					"items": [
+						{
+							"title": "Register",
+							"route": "register"
+						},
+						{
+							"title": "Login",
+							"route": "login"
+						}
+					]
+				}
+			],
+			"type": "zone"
+		},
+		"private_zone": {
+			"navbar_class": "navbar-default navbar-fixed-top",
+			"pages": [
+				{
+					"name": "home_private",
+					"title": "Welcome {{userFullName}}!",
+					"type": "page"
+				},
+				{
+					"name": "user_settings",
+					"pages": [
+						{
+							"name": "profile",
+							"components": [
+								{
+									"name": "edit_form",
+									"type": "form",
+									"mode": "update",
+									"title": "Edit your profile",
+									"submit_route": "user_settings.profile",
+									"query_name": "current_user_data",
+									"fields": [
+										{
+											"name": "profile.name",
+											"title": "Name",
+											"required": true,
+											"type": "string"
+										},
+										{
+											"name": "profile.email",
+											"title": "E-mail",
+											"type": "email",
+											"required": true
+										},
+										{
+											"name": "profile.facebook",
+											"title": "Facebook URL",
+											"type": "string"
+										},
+										{
+											"name": "profile.google",
+											"title": "Google+ URL",
+											"type": "string"
+										},
+										{
+											"name": "profile.twitter",
+											"title": "Twitter ID",
+											"type": "string"
+										},
+										{
+											"name": "profile.website",
+											"title": "Website URL",
+											"type": "string"
+										}
+									]
+								}
+							],
+							"type": "page"
+						},
+						{
+							"name": "change_pass",
+							"template": "change_pass",
+							"type": "page"
+						}
+					],
+					"components": [
+						{
+							"name": "side_menu",
+							"type": "menu",
+							"class": "nav nav-stacked nav-pills",
+							"items": [
+								{
+									"title": "Profile",
+									"route": "user_settings.profile"
+								},
+								{
+									"title": "Change password",
+									"route": "user_settings.change_pass"
+								}
+							]
+						}
+					],
+					"type": "page"
+				},
+				{
+					"name": "logout",
+					"template": "logout",
+					"type": "page"
+				},
+				{
+					"name": "events",
+					"title": "Events",
+					"type": "page",
+					"components": [
+						{
+							"name": "events",
+							"query_name": "eventsList",
+							"type": "data_view"
+						}
+					]
+				}
+			],
+			"components": [
+				{
+					"name": "left_menu",
+					"type": "menu",
+					"class": "nav navbar-nav",
+					"dest_selector": "#menu",
+					"items": [
+						{
+							"title": "Home",
+							"route": "home_private"
+						}
+					]
+				},
+				{
+					"name": "right_menu",
+					"type": "menu",
+					"class": "nav navbar-nav navbar-right",
+					"dest_selector": "#menu",
+					"items": [
+						{
+							"title": "{{userEmail}}",
+							"items": [
+								{
+									"title": "Settings",
+									"route": "user_settings"
+								},
+								{
+									"title": "Logout",
+									"route": "logout"
+								}
+							]
+						}
+					]
+				}
+			],
+			"type": "zone"
+		},
+		"roles": [
+			"venueAdmin,eventAdmin,vendorAdmin,user"
+		],
+		"use_collection2": true,
+		"free_zone": {
+			"type": "zone"
+		},
+		"login_with_google": true,
+		"login_with_twitter": true,
+		"packages": {}
+	}
+}
