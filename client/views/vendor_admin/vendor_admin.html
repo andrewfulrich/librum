@@ -1,0 +1,158 @@
+<template name="VendorAdmin">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Vendor Admin
+				</h2>
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		{{> VendorAdminVendorListView}}{{> VendorAdminAddVendorForm}}
+	</div>
+</template>
+
+<template name="VendorAdminVendorListView">
+	<div id="data_view" class="">
+		<form id="dataview-controls" class="form-inline">
+			<div id="dataview-controls-search">
+				{{#if isNotEmpty}}
+				<div id="dataview-controls-search-group" class="form-group">
+					<label class="sr-only" for="search">
+						Search
+					</label>
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<button type="button" id="dataview-search-button" class="btn btn-primary">
+						<span class="fa fa-search">
+						</span>
+					</button>
+				</div>
+				{{/if}}
+			</div>
+		</form>
+		{{#if isNotEmpty}}	
+			{{#if isNotFound}}
+		<div class="alert alert-warning">
+			"{{searchString}}" not found.
+		</div>
+		{{else}}
+		<div id="dataview-data">
+			{{#if viewAsTable}} {{> VendorAdminVendorListViewTable}} {{/if}}
+		</div>
+		{{/if}}	
+		{{else}}
+		<div class="alert alert-info">
+			Empty.
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="VendorAdminVendorListViewTable">
+	<table id="dataview-table" class="table table-striped">
+		<thead id="dataview-table-header">
+			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="vendorName">
+					Name
+				</th>
+				<th class="th-sortable" data-sort="vendorImage">
+					Image
+				</th>
+				<th class="th-sortable" data-sort="venue_id">
+					Venue
+				</th>
+			</tr>
+		</thead>
+		<tbody id="dataview-table-items">
+			{{#each tableItems}} {{> VendorAdminVendorListViewTableItems}} {{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="VendorAdminVendorListViewTableItems">
+	<tr id="dataview-table-items-row">
+		<td>
+			{{vendorName}}
+		</td>
+		<td>
+			{{vendorImage}}
+		</td>
+		<td>
+			{{venue_id}}
+		</td>
+	</tr>
+</template>
+
+<template name="VendorAdminAddVendorForm">
+	<div class="">
+		<h2 id="component-title">
+			Add Vendor
+		</h2>
+		<form id="form" role="form">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}		
+		
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
+			<div class="form-group  field-vendor-name">
+				<label for="vendorName">
+					Name
+				</label>
+				<div class="input-div">
+					<input type="text" name="vendorName" value="" class="form-control" autofocus="autofocus" data-type="string">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-vendor-image">
+				<label for="vendorImage">
+					Image
+				</label>
+				<div class="input-div">
+					<input type="text" name="vendorImage" value="" class="form-control" data-type="string">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-venue_id">
+				<label for="venue_id">
+					Venue
+				</label>
+				<div class="input-div">
+					<select class="form-control" name="venue_id" data-type="string">
+						{{#each venues_list}}
+						<option value="{{_id}}">
+							{{venueName}}
+						</option>
+						{{/each}}
+					</select>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="submit-div">
+					<button id="form-submit-button" class="btn btn-success" type="submit">
+						<span class="fa fa-check">
+						</span>
+						Save
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</template>
+

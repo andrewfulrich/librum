@@ -1,0 +1,179 @@
+<template name="ProductAdmin">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Product Admin
+				</h2>
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		{{> ProductAdminProductListView}}{{> ProductAdminAddProductForm}}
+	</div>
+</template>
+
+<template name="ProductAdminProductListView">
+	<div id="data_view" class="">
+		<h2 id="component-title">
+			Products
+		</h2>
+		<form id="dataview-controls" class="form-inline">
+			<div id="dataview-controls-search">
+				{{#if isNotEmpty}}
+				<div id="dataview-controls-search-group" class="form-group">
+					<label class="sr-only" for="search">
+						Search
+					</label>
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<button type="button" id="dataview-search-button" class="btn btn-primary">
+						<span class="fa fa-search">
+						</span>
+					</button>
+				</div>
+				{{/if}}
+			</div>
+		</form>
+		{{#if isNotEmpty}}	
+			{{#if isNotFound}}
+		<div class="alert alert-warning">
+			"{{searchString}}" not found.
+		</div>
+		{{else}}
+		<div id="dataview-data">
+			{{#if viewAsTable}} {{> ProductAdminProductListViewTable}} {{/if}}
+		</div>
+		{{/if}}	
+		{{else}}
+		<div class="alert alert-info">
+			Empty.
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="ProductAdminProductListViewTable">
+	<table id="dataview-table" class="table table-striped">
+		<thead id="dataview-table-header">
+			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="productName">
+					Product Name
+				</th>
+				<th class="th-sortable" data-sort="productVendor">
+					Vendor
+				</th>
+				<th class="th-sortable" data-sort="productPrice">
+					Price
+				</th>
+				<th class="th-sortable" data-sort="productImage">
+					Image
+				</th>
+			</tr>
+		</thead>
+		<tbody id="dataview-table-items">
+			{{#each tableItems}} {{> ProductAdminProductListViewTableItems}} {{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="ProductAdminProductListViewTableItems">
+	<tr id="dataview-table-items-row">
+		<td>
+			{{productName}}
+		</td>
+		<td>
+			{{productVendor}}
+		</td>
+		<td>
+			{{productPrice}}
+		</td>
+		<td>
+			{{productImage}}
+		</td>
+	</tr>
+</template>
+
+<template name="ProductAdminAddProductForm">
+	<div class="">
+		<h2 id="component-title">
+			Add Product
+		</h2>
+		<form id="form" role="form">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}		
+		
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
+			<div class="form-group  field-product-name">
+				<label for="productName">
+					Product Name
+				</label>
+				<div class="input-div">
+					<input type="text" name="productName" value="" class="form-control" autofocus="autofocus" data-type="string">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-product-vendor">
+				<label for="productVendor">
+					Vendor
+				</label>
+				<div class="input-div">
+					<select class="form-control" name="productVendor" data-type="string">
+						{{#each vendor_list}}
+						<option value="{{_id}}">
+							{{vendorName}}
+						</option>
+						{{/each}}
+					</select>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-product-price">
+				<label for="productPrice">
+					Price
+				</label>
+				<div class="input-div">
+					<input type="text" name="productPrice" value="" class="form-control" data-type="float">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-product-image">
+				<label for="productImage">
+					Image
+				</label>
+				<div class="input-div">
+					<input type="text" name="productImage" value="" class="form-control" data-type="string">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="submit-div">
+					<button id="form-submit-button" class="btn btn-success" type="submit">
+						<span class="fa fa-check">
+						</span>
+						Save
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</template>
+

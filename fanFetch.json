@@ -24,7 +24,11 @@
 					{
 						"name": "venue",
 						"type": "string",
-						"join_collection": "venues"
+						"join_collection": "venues",
+						"input": "select",
+						"lookup_query_name": "venuesList",
+						"lookup_key": "_id",
+						"lookup_field": "venueName"
 					},
 					{
 						"name": "eventImage",
@@ -50,35 +54,6 @@
 						"name": "venueName",
 						"title": "Venue Name",
 						"type": "string"
-					},
-					{
-						"name": "sections",
-						"type": "array",
-						"crud_fields": [
-                          	{
-								"name": "sectionName",
-								"title": "Section Name",
-								"type": "string"
-							},
-							{
-								"name": "seats",
-								"title": "Seat",
-								"type": "array",
-								"input": "crud",
-								"array_item_type": "object",
-								"crud_fields": [
-									{
-										"name": "seatNumber",
-										"title": "Seat Number",
-										"type": "string"
-									}
-								]
-							}
-							
-						],
-						"title": "Sections",
-						"input": "crud",
-						"array_item_type": "object"
 					}
 				]
 			},
@@ -104,6 +79,16 @@
 						"name": "vendorImage",
 						"title": "Image",
 						"type": "string"
+					},
+					{
+						"name": "venue_id",
+						"title": "Venue",
+						"type": "string",
+						"input": "select",
+						"lookup_query_name": "venuesList",
+						"lookup_key": "_id",
+						"lookup_field": "venueName",
+						"join_collection": "venues"
 					}
 				]
 			},
@@ -129,7 +114,11 @@
 						"name": "productVendor",
 						"title": "Vendor",
 						"type": "string",
-						"join_collection": "vendors"
+						"join_collection": "vendors",
+						"input": "select",
+						"lookup_query_name": "vendorList",
+						"lookup_key": "_id",
+						"lookup_field": "vendorName"
 					},
 					{
 						"name": "productPrice",
@@ -172,6 +161,50 @@
 						"join_collection": "users"
 					}
 				]
+			},
+			{
+				"name": "venueSections",
+				"type": "collection",
+				"roles_allowed_to_insert": [
+					"venueAdmin"
+				],
+				"roles_allowed_to_update": [
+					"venueAdmin"
+				],
+				"roles_allowed_to_delete": [
+					"venueAdmin"
+				],
+				"fields": [
+					{
+						"name": "seats",
+						"title": "Seats",
+						"type": "array",
+						"input": "crud",
+						"array_item_type": "object",
+						"crud_fields": [
+							{
+								"name": "seatNumber",
+								"title": "Seat Number",
+								"type": "string"
+							}
+						]
+					},
+					{
+						"name": "sectionName",
+						"title": "Name",
+						"type": "string"
+					},
+					{
+						"name": "venue_id",
+						"title": "Venue",
+						"type": "string",
+						"input": "select",
+						"lookup_query_name": "venuesList",
+						"lookup_key": "_id",
+						"lookup_field": "venueName",
+						"join_collection": "venues"
+					}
+				]
 			}
 		],
 		"queries": [
@@ -188,7 +221,7 @@
 				"collection": "events"
 			},
 			{
-				"name": "products_list",
+				"name": "productsList",
 				"collection": "products"
 			},
 			{
@@ -202,6 +235,68 @@
 					"_id": null
 				},
 				"find_one": true
+			},
+			{
+				"name": "editVenueQuery",
+				"collection": "venues",
+				"find_one": true,
+				"filter": {
+					"_id": ":venue_id"
+				}
+			},
+			{
+				"name": "edit_venue_query",
+				"collection": "venues",
+				"filter": {
+					"_id": ":venue_id"
+				}
+			},
+			{
+				"name": "addEventQuery",
+				"collection": "events",
+				"find_one": true,
+				"filter": {
+					"_id": null
+				}
+			},
+			{
+				"name": "venueSectionsList",
+				"collection": "venueSections",
+				"filter": {
+					"venue_id": ":venue_id"
+				}
+			},
+			{
+				"name": "venueSectionsListAll",
+				"collection": "venueSections"
+			},
+			{
+				"name": "addSectionSeatingQuery",
+				"collection": "venueSections",
+				"find_one": true,
+				"filter": {
+					"_id": null
+				}
+			},
+			{
+				"name": "vendorList",
+				"collection": "vendors"
+			},
+			{
+				"name": "addVendorQuery",
+				"collection": "vendors",
+				"find_one": true,
+				"filter": {
+					"_id": null
+				}
+			},
+			{
+				"name": "addProductQuery",
+				"collection": "products",
+				"find_one": true,
+				"filter": {
+					"_id": null
+				}
 			}
 		],
 		"public_zone": {
@@ -374,7 +469,13 @@
 						{
 							"name": "events",
 							"query_name": "eventsList",
-							"type": "data_view"
+							"type": "data_view",
+							"details_route_params": [
+								{
+									"name": "event_id",
+									"value": "this._id"
+								}
+							]
 						}
 					]
 				},
@@ -393,7 +494,11 @@
 				{
 					"name": "event_seating",
 					"title": "Where is your seat?",
-					"type": "page"
+					"type": "page",
+					"query_name": "venueSectionsList",
+					"route_params": [
+						"venue_id"
+					]
 				},
 				{
 					"name": "venue_admin",
@@ -404,7 +509,18 @@
 							"type": "data_view",
 							"title": "Venues",
 							"query_name": "venuesList",
-							"insert_route": "venue_admin.add_venue"
+							"insert_route": "venue_admin.add_venue",
+							"edit_route": "venue_admin.edit_venue",
+							"edit_route_params": [
+								{
+									"name": "venue_id",
+									"value": "this._id"
+								},
+								{
+									"name": "somethingElse",
+									"value": "1"
+								}
+							]
 						}
 					],
 					"pages": [
@@ -423,9 +539,111 @@
 									"query_name": "addVenueQuery"
 								}
 							]
+						},
+						{
+							"name": "edit_venue",
+							"query_name": "editVenueQuery",
+							"route_params": [
+								"venue_id"
+							],
+							"type": "page",
+							"components": [
+								{
+									"name": "edit_venue_form",
+									"title": "Edit Venue",
+									"query_name": "editVenueQuery",
+									"mode": "update",
+									"submit_route": "venue_admin",
+									"cancel_route": "venue_admin",
+									"close_route": "venue_admin",
+									"type": "form"
+								}
+							]
 						}
 					],
 					"title": "Venue Admin"
+				},
+				{
+					"name": "event_admin",
+					"title": "Event Admin",
+					"type": "page",
+					"components": [
+						{
+							"name": "event_admin_list",
+							"query_name": "eventsList",
+							"type": "data_view"
+						},
+						{
+							"name": "add_event",
+							"title": "Add Event",
+							"query_name": "addEventQuery",
+							"mode": "insert",
+							"submit_route": "event_admin",
+							"cancel_route": "event_admin",
+							"type": "form"
+						}
+					]
+				},
+				{
+					"name": "section_seating_admin",
+					"title": "Section Seating",
+					"type": "page",
+					"components": [
+						{
+							"name": "section_seating_list_all",
+							"title": "All Sections",
+							"query_name": "venueSectionsListAll",
+							"type": "data_view"
+						},
+						{
+							"name": "addSectionSeatingForm",
+							"title": "Add Section",
+							"query_name": "addSectionSeatingQuery",
+							"mode": "insert",
+							"type": "form"
+						}
+					]
+				},
+				{
+					"name": "vendor_admin",
+					"title": "Vendor Admin",
+					"type": "page",
+					"components": [
+						{
+							"name": "vendor_list_view",
+							"query_name": "vendorList",
+							"type": "data_view"
+						},
+						{
+							"name": "add_vendor_form",
+							"title": "Add Vendor",
+							"query_name": "addVendorQuery",
+							"mode": "insert",
+							"submit_route": "vendor_admin",
+							"type": "form"
+						}
+					]
+				},
+				{
+					"name": "product_admin",
+					"title": "Product Admin",
+					"type": "page",
+					"components": [
+						{
+							"name": "product_list_view",
+							"title": "Products",
+							"query_name": "productsList",
+							"type": "data_view"
+						},
+						{
+							"name": "add_product_form",
+							"title": "Add Product",
+							"query_name": "addProductQuery",
+							"mode": "insert",
+							"submit_route": "product_admin",
+							"type": "form"
+						}
+					]
 				}
 			],
 			"components": [
@@ -438,6 +656,26 @@
 						{
 							"title": "Home",
 							"route": "home_private"
+						},
+						{
+							"title": "Venue Admin",
+							"route": "venue_admin"
+						},
+						{
+							"title": "Event Admin",
+							"route": "event_admin"
+						},
+						{
+							"title": "Seating Admin",
+							"route": "section_seating_admin"
+						},
+						{
+							"title": "Vendor Admin",
+							"route": "vendor_admin"
+						},
+						{
+							"title": "Product Admin",
+							"route": "product_admin"
 						}
 					]
 				},
@@ -471,7 +709,6 @@
 			"vendorAdmin",
 			"user"
 		],
-		"use_collection2": true,
 		"free_zone": {
 			"type": "zone"
 		},

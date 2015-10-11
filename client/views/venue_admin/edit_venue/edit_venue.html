@@ -1,4 +1,4 @@
-<template name="VenueAdminAddVenue">
+<template name="VenueAdminEditVenue">
 	<div class="page-container container" id="content">
 		<div class="row" id="title_row">
 			<div class="col-md-12">
@@ -6,12 +6,15 @@
 				</div>
 			</div>
 		</div>
-		{{> VenueAdminAddVenueAddVenueForm}}
+		{{> VenueAdminEditVenueEditVenueForm}}
 	</div>
 </template>
 
-<template name="VenueAdminAddVenueAddVenueForm">
+<template name="VenueAdminEditVenueEditVenueForm">
 	<div class="">
+		<h2 id="component-title">
+			Edit Venue
+		</h2>
 		<form id="form" role="form">
 			{{#if errorMessage}}
 			<div class="alert alert-warning">
@@ -29,7 +32,7 @@
 					Venue Name
 				</label>
 				<div class="input-div">
-					<input type="text" name="venueName" value="" class="form-control" autofocus="autofocus" data-type="string">
+					<input type="text" name="venueName" value="{{edit_venue_query.venueName}}" class="form-control" autofocus="autofocus" data-type="string">
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">
