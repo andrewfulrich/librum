@@ -222,11 +222,7 @@ Template.HomePrivateOtherEventListViewTableItems.rendered = function() {
 };
 
 Template.HomePrivateOtherEventListViewTableItems.events({
-	"click td": function(e, t) {
-		e.preventDefault();
-		/**/
-		return false;
-	},
+
 
 	"click .inline-checkbox": function(e, t) {
 		e.preventDefault();

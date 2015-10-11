@@ -222,11 +222,7 @@ Template.RunnerSelectionRunnerListViewTableItems.rendered = function() {
 };
 
 Template.RunnerSelectionRunnerListViewTableItems.events({
-	"click td": function(e, t) {
-		e.preventDefault();
-		/**/
-		return false;
-	},
+	
 
 	"click .inline-checkbox": function(e, t) {
 		e.preventDefault();

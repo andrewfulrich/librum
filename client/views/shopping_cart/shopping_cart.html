@@ -8,6 +8,11 @@
 		</div>
 		{{> ShoppingCartOrdersListView}}
 	</div>
+	<footer>
+		<a href="runner_selection"><img src="images/BackgroundandSplash/BackButton.jpg"></a>
+		<img src="images/BackgroundandSplash/MasterPass3.jpg">
+
+	</footer>
 </template>
 
 <template name="ShoppingCartOrdersListView">
@@ -54,10 +59,13 @@
 					Your Order
 				</th>
 				<th class="th-sortable" data-sort="runner_name">
-					runner_name
+					Runner Name
 				</th>
 				<th class="th-sortable" data-sort="buyer_name">
-					buyer_name
+					Buyer Name
+				</th>
+				<th class="th-sortable" data-sort="buyer_price">
+					Order Total
 				</th>
 			</tr>
 		</thead>
@@ -77,6 +85,9 @@
 		</td>
 		<td>
 			{{buyer_name}}
+		</td>
+		<td>
+			$6.00
 		</td>
 	</tr>
 </template>

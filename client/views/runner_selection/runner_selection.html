@@ -8,6 +8,10 @@
 		</div>
 		{{> RunnerSelectionRunnerListView}}
 	</div>
+		<footer>
+		<a href="venue_menu"><img src="images/BackgroundandSplash/BackButton.jpg"></a>
+		<a href="shopping_cart"><img src="images/BackgroundandSplash/Checkout2.jpg"></a>
+	</footer>
 </template>
 
 <template name="RunnerSelectionRunnerListView">
@@ -59,6 +63,9 @@
 				<th class="th-sortable" data-sort="user_name">
 					user_name
 				</th>
+				<th class="th-sortable" data-sort="Rate">
+					Fee
+				</th>
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
@@ -70,10 +77,13 @@
 <template name="RunnerSelectionRunnerListViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{status}}
+			<a href="event_seating">{{status}}</a>
 		</td>
 		<td>
 			{{user_name}}
+		</td>
+		<td>
+			$1.00
 		</td>
 	</tr>
 </template>

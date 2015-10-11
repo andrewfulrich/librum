@@ -11,6 +11,8 @@
 		</div>
 		{{> VenueMenuMenuItems}}
 	</div>
+	<a href="events"><img src="images/BackgroundandSplash/BackButton.jpg"></a>
+
 </template>
 
 <template name="VenueMenuMenuItems">
@@ -60,7 +62,7 @@
 					Image
 				</th>
 				<th class="th-sortable" data-sort="vendor_name">
-					vendor_name
+					Product Price
 				</th>
 			</tr>
 		</thead>
@@ -73,13 +75,13 @@
 <template name="VenueMenuMenuItemsTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{productName}}
+		<a href="runner_selection">	{{productName}}</a>
 		</td>
 		<td>
-			{{productImage}}
+			<img src="{{productImage}}">
 		</td>
 		<td>
-			{{vendor_name}}
+			${{productPrice}}.00
 		</td>
 	</tr>
 </template>
