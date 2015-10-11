@@ -95,6 +95,10 @@ Template.CheckOutOrdersListView.events({
 		}
 		return false;
 	},
+        "click #buyNowButton": function(e,t) {
+            $("#continue_btn").css('visibility', 'visible');
+            return true;
+        },
 
 	"keydown #dataview-search-input": function(e, t) {
 		if(e.which === 13)

@@ -211,7 +211,9 @@ elapsed_interval = setInterval(function () {
     seconds = parseInt(seconds_elapsed % 60);
     seconds = seconds == 0 ? "" : seconds + " seconds";
     elapsed_message= minutes + " " + seconds;
-    document.getElementById("time_elapsed").textContent= elapsed_message;
+    if(document.getElementById("time_elapsed")) {
+        document.getElementById("time_elapsed").textContent= elapsed_message;
+    }
 }, 1000);
 Template.RunnerReviewRunnerReviewListTable.events({
 	"click .th-sortable": function(e, t) {
