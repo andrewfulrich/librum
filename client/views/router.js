@@ -38,7 +38,8 @@ var privateRoutes = [
 	"shopping_cart",
 	"check_out",
 	"order_confirmation",
-	"runner_review"
+	"runner_review",
+	"seating"
 ];
 
 var freeRoutes = [
@@ -205,7 +206,7 @@ Router.map(function () {
 	this.route("logout", {path: "/logout", controller: "LogoutController"});
 	this.route("events", {path: "/events", controller: "EventsController"});
 	this.route("venue_menu", {path: "/venue_menu", controller: "VenueMenuController"});
-	this.route("event_seating", {path: "/event_seating/:venue_id", controller: "EventSeatingController"});
+	this.route("event_seating", {path: "/event_seating", controller: "EventSeatingController"});
 	this.route("venue_admin", {path: "/venue_admin", controller: "VenueAdminController"});
 	this.route("venue_admin.add_venue", {path: "/venue_admin/add_venue", controller: "VenueAdminAddVenueController"});
 	this.route("venue_admin.edit_venue", {path: "/venue_admin/edit_venue/:venue_id", controller: "VenueAdminEditVenueController"});
@@ -221,4 +222,5 @@ Router.map(function () {
 	this.route("check_out", {path: "/check_out", controller: "CheckOutController"});
 	this.route("order_confirmation", {path: "/order_confirmation", controller: "OrderConfirmationController"});
 	this.route("runner_review", {path: "/runner_review", controller: "RunnerReviewController"});
+	this.route("seating", {path: "/seating", controller: "SeatingController"});
 });
