@@ -31,7 +31,7 @@ var VenueAdminVenueAdminViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["venueName", "sections"];
+		var searchFields = ["venueName"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -269,7 +269,7 @@ Template.VenueAdminVenueAdminViewTableItems.events({
 	},
 	"click #edit-button": function(e, t) {
 		e.preventDefault();
-		/**/
+		Router.go("venue_admin.edit_venue", {venue_id: this._id, somethingElse: 1});
 		return false;
 	}
 });

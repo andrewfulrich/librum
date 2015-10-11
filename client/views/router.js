@@ -25,7 +25,12 @@ var privateRoutes = [
 	"products_menu",
 	"event_seating",
 	"venue_admin",
-	"venue_admin.add_venue"
+	"venue_admin.add_venue",
+	"venue_admin.edit_venue",
+	"event_admin",
+	"section_seating_admin",
+	"vendor_admin",
+	"product_admin"
 ];
 
 var freeRoutes = [
@@ -192,7 +197,12 @@ Router.map(function () {
 	this.route("logout", {path: "/logout", controller: "LogoutController"});
 	this.route("events", {path: "/events", controller: "EventsController"});
 	this.route("products_menu", {path: "/products_menu", controller: "ProductsMenuController"});
-	this.route("event_seating", {path: "/event_seating", controller: "EventSeatingController"});
+	this.route("event_seating", {path: "/event_seating/:venue_id", controller: "EventSeatingController"});
 	this.route("venue_admin", {path: "/venue_admin", controller: "VenueAdminController"});
 	this.route("venue_admin.add_venue", {path: "/venue_admin/add_venue", controller: "VenueAdminAddVenueController"});
+	this.route("venue_admin.edit_venue", {path: "/venue_admin/edit_venue/:venue_id", controller: "VenueAdminEditVenueController"});
+	this.route("event_admin", {path: "/event_admin", controller: "EventAdminController"});
+	this.route("section_seating_admin", {path: "/section_seating_admin", controller: "SectionSeatingAdminController"});
+	this.route("vendor_admin", {path: "/vendor_admin", controller: "VendorAdminController"});
+	this.route("product_admin", {path: "/product_admin", controller: "ProductAdminController"});
 });

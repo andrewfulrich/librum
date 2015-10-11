@@ -1,22 +1,22 @@
 var pageSession = new ReactiveDict();
 
-Template.VenueAdminAddVenue.rendered = function() {
+Template.VenueAdminEditVenue.rendered = function() {
 	
 };
 
-Template.VenueAdminAddVenue.events({
+Template.VenueAdminEditVenue.events({
 	
 });
 
-Template.VenueAdminAddVenue.helpers({
+Template.VenueAdminEditVenue.helpers({
 	
 });
 
-Template.VenueAdminAddVenueAddVenueForm.rendered = function() {
+Template.VenueAdminEditVenueEditVenueForm.rendered = function() {
 	
 
-	pageSession.set("venueAdminAddVenueAddVenueFormInfoMessage", "");
-	pageSession.set("venueAdminAddVenueAddVenueFormErrorMessage", "");
+	pageSession.set("venueAdminEditVenueEditVenueFormInfoMessage", "");
+	pageSession.set("venueAdminEditVenueEditVenueFormErrorMessage", "");
 
 	$(".input-group.date").each(function() {
 		var format = $(this).find("input[type='text']").attr("data-format");
@@ -44,25 +44,25 @@ Template.VenueAdminAddVenueAddVenueForm.rendered = function() {
 	$("input[autofocus]").focus();
 };
 
-Template.VenueAdminAddVenueAddVenueForm.events({
+Template.VenueAdminEditVenueEditVenueForm.events({
 	"submit": function(e, t) {
 		e.preventDefault();
-		pageSession.set("venueAdminAddVenueAddVenueFormInfoMessage", "");
-		pageSession.set("venueAdminAddVenueAddVenueFormErrorMessage", "");
+		pageSession.set("venueAdminEditVenueEditVenueFormInfoMessage", "");
+		pageSession.set("venueAdminEditVenueEditVenueFormErrorMessage", "");
 
 		var self = this;
 
 		function submitAction(msg) {
-			var venueAdminAddVenueAddVenueFormMode = "insert";
+			var venueAdminEditVenueEditVenueFormMode = "update";
 			if(!t.find("#form-cancel-button")) {
-				switch(venueAdminAddVenueAddVenueFormMode) {
+				switch(venueAdminEditVenueEditVenueFormMode) {
 					case "insert": {
 						$(e.target)[0].reset();
 					}; break;
 
 					case "update": {
 						var message = msg || "Saved.";
-						pageSession.set("venueAdminAddVenueAddVenueFormInfoMessage", message);
+						pageSession.set("venueAdminEditVenueEditVenueFormInfoMessage", message);
 					}; break;
 				}
 			}
@@ -73,7 +73,7 @@ Template.VenueAdminAddVenueAddVenueForm.events({
 		function errorAction(msg) {
 			msg = msg || "";
 			var message = msg.message || msg || "Error.";
-			pageSession.set("venueAdminAddVenueAddVenueFormErrorMessage", message);
+			pageSession.set("venueAdminEditVenueEditVenueFormErrorMessage", message);
 		}
 
 		validateForm(
@@ -87,7 +87,7 @@ Template.VenueAdminAddVenueAddVenueForm.events({
 			function(values) {
 				
 
-				newId = Venues.insert(values, function(e) { if(e) errorAction(e); else submitAction(); });
+				Venues.update({ _id: t.data.edit_venue_query._id }, { $set: values }, function(e) { if(e) errorAction(e); else submitAction(); });
 			}
 		);
 
@@ -114,12 +114,12 @@ Template.VenueAdminAddVenueAddVenueForm.events({
 	
 });
 
-Template.VenueAdminAddVenueAddVenueForm.helpers({
+Template.VenueAdminEditVenueEditVenueForm.helpers({
 	"infoMessage": function() {
-		return pageSession.get("venueAdminAddVenueAddVenueFormInfoMessage");
+		return pageSession.get("venueAdminEditVenueEditVenueFormInfoMessage");
 	},
 	"errorMessage": function() {
-		return pageSession.get("venueAdminAddVenueAddVenueFormErrorMessage");
+		return pageSession.get("venueAdminEditVenueEditVenueFormErrorMessage");
 	}
 	
 });

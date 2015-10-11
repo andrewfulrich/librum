@@ -1,5 +1,5 @@
-this.EventSeatingController = RouteController.extend({
-	template: "EventSeating",
+this.VendorAdminController = RouteController.extend({
+	template: "VendorAdmin",
 	
 
 	yieldTemplates: {
@@ -19,7 +19,9 @@ this.EventSeatingController = RouteController.extend({
 		
 
 		var subs = [
-			Meteor.subscribe("venue_sections_list", this.params.venue_id)
+			Meteor.subscribe("vendor_list"),
+			Meteor.subscribe("venues_list"),
+			Meteor.subscribe("add_vendor_query")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -34,7 +36,9 @@ this.EventSeatingController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			venue_sections_list: VenueSections.find({venue_id:this.params.venue_id}, {})
+			vendor_list: Vendors.find({}, {}),
+			venues_list: Venues.find({}, {}),
+			add_vendor_query: Vendors.findOne({_id:null}, {})
 		};
 		/*DATA_FUNCTION*/
 	},
