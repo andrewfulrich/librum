@@ -31,7 +31,7 @@ var RunnerSelectionRunnerListViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["user_id", "status"];
+		var searchFields = ["user_id", "status", "user_name"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {

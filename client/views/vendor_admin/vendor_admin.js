@@ -31,7 +31,7 @@ var VendorAdminVendorListViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["vendorName", "vendorImage", "venue_id"];
+		var searchFields = ["vendorName", "vendorImage", "venue_id", "venue_name"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {

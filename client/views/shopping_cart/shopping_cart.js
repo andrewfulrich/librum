@@ -31,7 +31,7 @@ var ShoppingCartOrdersListViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["productsOrdered", "runner", "buyer"];
+		var searchFields = ["productsOrdered", "runner", "buyer", "runner_name", "buyer_name"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {

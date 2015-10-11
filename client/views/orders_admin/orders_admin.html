@@ -59,11 +59,11 @@
 				<th class="th-sortable" data-sort="productsOrdered">
 					Your Order
 				</th>
-				<th class="th-sortable" data-sort="runner">
-					Runner
+				<th class="th-sortable" data-sort="runner_name">
+					runner_name
 				</th>
-				<th class="th-sortable" data-sort="buyer">
-					buyer
+				<th class="th-sortable" data-sort="buyer_name">
+					buyer_name
 				</th>
 			</tr>
 		</thead>
@@ -79,10 +79,10 @@
 			{{productsOrdered}}
 		</td>
 		<td>
-			{{runner}}
+			{{runner_name}}
 		</td>
 		<td>
-			{{buyer}}
+			{{buyer_name}}
 		</td>
 	</tr>
 </template>
@@ -136,6 +136,28 @@
 				</label>
 				<div class="input-div">
 					<input type="text" name="buyer" value="" class="form-control" data-type="string">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-runner_name">
+				<label for="runner_name">
+				</label>
+				<div class="input-div">
+					<input type="text" name="runner_name" value="" class="form-control" data-type="string">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-buyer_name">
+				<label for="buyer_name">
+				</label>
+				<div class="input-div">
+					<input type="text" name="buyer_name" value="" class="form-control" data-type="string">
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">

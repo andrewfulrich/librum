@@ -53,11 +53,11 @@
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="user_id">
-					user_id
-				</th>
 				<th class="th-sortable" data-sort="status">
 					Status
+				</th>
+				<th class="th-sortable" data-sort="user_name">
+					user_name
 				</th>
 			</tr>
 		</thead>
@@ -70,10 +70,10 @@
 <template name="RunnerSelectionRunnerListViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{user_id}}
+			{{status}}
 		</td>
 		<td>
-			{{status}}
+			{{user_name}}
 		</td>
 	</tr>
 </template>

@@ -93,7 +93,12 @@
 						"lookup_query_name": "venuesList",
 						"lookup_key": "_id",
 						"lookup_field": "venueName",
-						"join_collection": "venues"
+						"join_collection": "venues",
+						"show_in_dataview": false
+					},
+					{
+						"name": "venue_name",
+						"type": "string"
 					}
 				]
 			},
@@ -123,16 +128,22 @@
 						"input": "select",
 						"lookup_query_name": "vendorList",
 						"lookup_key": "_id",
-						"lookup_field": "vendorName"
+						"lookup_field": "vendorName",
+						"show_in_dataview": false
 					},
 					{
 						"name": "productPrice",
 						"title": "Price",
-						"type": "float"
+						"type": "float",
+						"show_in_dataview": false
 					},
 					{
 						"name": "productImage",
 						"title": "Image",
+						"type": "string"
+					},
+					{
+						"name": "vendor_name",
 						"type": "string"
 					}
 				]
@@ -167,10 +178,20 @@
 						"input": "select",
 						"lookup_query_name": "runnerStatusList",
 						"lookup_key": "_id",
-						"lookup_field": "_id"
+						"lookup_field": "_id",
+						"show_in_dataview": false
 					},
 					{
 						"name": "buyer",
+						"type": "string",
+						"show_in_dataview": false
+					},
+					{
+						"name": "runner_name",
+						"type": "string"
+					},
+					{
+						"name": "buyer_name",
 						"type": "string"
 					}
 				]
@@ -215,7 +236,12 @@
 						"lookup_query_name": "venuesList",
 						"lookup_key": "_id",
 						"lookup_field": "venueName",
-						"join_collection": "venues"
+						"join_collection": "venues",
+						"show_in_dataview": false
+					},
+					{
+						"name": "venue_name",
+						"type": "string"
 					}
 				]
 			},
@@ -226,7 +252,8 @@
 					{
 						"name": "user_id",
 						"type": "string",
-						"join_collection": "users"
+						"join_collection": "users",
+						"show_in_dataview": false
 					},
 					{
 						"name": "status",
@@ -237,6 +264,10 @@
 						"lookup_key": "_id",
 						"lookup_field": "name",
 						"join_collection": "runnerStates"
+					},
+					{
+						"name": "user_name",
+						"type": "string"
 					}
 				]
 			},
