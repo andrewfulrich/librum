@@ -23,7 +23,9 @@
 				<input id="login_email" type="text" class="form-control" placeholder="Email address" required autofocus>
 				<input id="login_password" type="password" class="form-control" placeholder="Password" required>
 				<button class="btn btn-lg btn-primary btn-block" type="submit" data-loading-text="Please wait...">
-					Sign in
+					<a href="{{pathFor 'home_public'}}">
+						Sign
+					</a>
 				</button>
 				<p class="account-form-text-after" id="register-link">
 					Not a member?

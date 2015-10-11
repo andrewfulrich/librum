@@ -222,11 +222,7 @@ Template.VenueMenuMenuItemsTableItems.rendered = function() {
 };
 
 Template.VenueMenuMenuItemsTableItems.events({
-	"click td": function(e, t) {
-		e.preventDefault();
-		/**/
-		return false;
-	},
+
 
 	"click .inline-checkbox": function(e, t) {
 		e.preventDefault();
