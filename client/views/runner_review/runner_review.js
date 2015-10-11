@@ -193,7 +193,26 @@ Template.RunnerReviewRunnerReviewList.helpers({
 Template.RunnerReviewRunnerReviewListTable.rendered = function() {
 	
 };
+var start_time=new Date().getTime();
+var seconds_elapsed=0;
+var elapsed_message="";
+canRate=false;
 
+elapsed_interval = setInterval(function () {
+    var hours=0, minutes=0, seconds=0;
+    seconds_elapsed = ( new Date().getTime() - start_time) / 1000;
+    
+    //    hours = parseInt(seconds_elapsed / 3600);
+    //  hours = hours == 0 ? "" : hours + " hours";
+    // seconds_elapsed = seconds_elapsed % 3600;
+    
+    minutes = parseInt(seconds_elapsed / 60);
+    minutes = minutes == 0 ? "" : minutes  + (minutes > 1 ? " minutes" : " minute");
+    seconds = parseInt(seconds_elapsed % 60);
+    seconds = seconds == 0 ? "" : seconds + " seconds";
+    elapsed_message= minutes + " " + seconds;
+    document.getElementById("time_elapsed").textContent= elapsed_message;
+}, 1000);
 Template.RunnerReviewRunnerReviewListTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
@@ -207,14 +226,30 @@ Template.RunnerReviewRunnerReviewListTable.events({
 		} else {
 			pageSession.set("RunnerReviewRunnerReviewListSortAscending", true);
 		}
-	}
+	},
+        "click #order_recieved_btn": function(e,t) {
+                e.preventDefault();
+                clearInterval(elapsed_interval);
+                $("#currentStatus").text("Order Recieved after " + elapsed_message + "!");
+                $("#reviewDiv").css('visibility', 'visible');
+                $("#order_recieved_btn").hide();
+                return false;
+        },
+        "click #submit_review_btn": function(e,t) {
+            e.preventDefault();
+            $("#reviewDiv").html("Thank you for your feedback! <a href='venue_menu' class='btn btn-primary'>Back to menu</a>");
+        }
 });
 
 Template.RunnerReviewRunnerReviewListTable.helpers({
 	"tableItems": function() {
 		return RunnerReviewRunnerReviewListItems(this.runner_status_list);
-	}
+	},
+        "canRate": function() {
+            return canRate;
+        }
 });
+
 
 
 Template.RunnerReviewRunnerReviewListTableItems.rendered = function() {
