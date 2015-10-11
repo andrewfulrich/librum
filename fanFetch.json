@@ -562,8 +562,7 @@
 								}
 							]
 						}
-					],
-					"custom_template": "client/views/events/eventsListBetter"
+					]
 				},
 				{
 					"name": "venue_menu",

@@ -1,24 +1,16 @@
 <template name="Events">
-	<table id="dataview-table" class="table table-striped">
-		<thead id="dataview-table-header">
-			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="eventName">
-					Event Name
-				</th>
-				<th class="th-sortable" data-sort="venue">
-					venue
-				</th>
-				<th class="th-sortable" data-sort="eventImage">
-					Image
-				</th>
-			</tr>
-		</thead>
-		<tbody id="dataview-table-items">
-			test		
-			{{#each tableItems}} {{> EventsEventsTableItems}} {{/each}}
-		</tbody>
-	</table>
-	{{> EventsEvents}}
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Events
+				</h2>
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		{{> EventsEvents}}
+	</div>
 </template>
 
 <template name="EventsEvents">

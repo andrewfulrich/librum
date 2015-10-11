@@ -1,10 +1,17 @@
 var pageSession = new ReactiveDict();
 
- Template.eventsListBetter.helpers({
-     "tableItems": function() {
-         return EventsEventsItems(this.events_list);
-     }
- });
+Template.Events.rendered = function() {
+	
+};
+
+Template.Events.events({
+	
+});
+
+Template.Events.helpers({
+	
+});
+
 var EventsEventsItems = function(cursor) {
 	if(!cursor) {
 		return [];
