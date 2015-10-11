@@ -11,6 +11,9 @@
 		</div>
 		{{> SeatingSeatingForm}}
 	</div>
+	<footer>
+		<a href="runner_selection"><img src="images/BackgroundandSplash/BackButton.jpg"></a>
+	</footer>
 </template>
 
 <template name="SeatingSeatingForm">
@@ -39,19 +42,23 @@
 						</option>
 						{{/each}}
 					</select>
+					<select onchange="window.location='shopping_cart'">
+                                                <option selected disabled></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+					</select>
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">
 					</span>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="submit-div">
-					<button id="form-submit-button" class="btn btn-success" type="submit">
-						<span class="fa fa-check">
-						</span>
-						Save
-					</button>
 				</div>
 			</div>
 		</form>
