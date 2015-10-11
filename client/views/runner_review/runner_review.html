@@ -50,22 +50,34 @@
 </template>
 
 <template name="RunnerReviewRunnerReviewListTable">
-	<table id="dataview-table" class="table table-striped">
-		<thead id="dataview-table-header">
-			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="status">
-					Status
-				</th>
-				<th class="th-sortable" data-sort="user_name">
-					user_name
-				</th>
-			</tr>
-		</thead>
-		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> RunnerReviewRunnerReviewListTableItems}} {{/each}}
-		</tbody>
-	</table>
+        <div id="currentStatus">
+            <h4>Your runner has been in transit for:</h4>
+
+            <span id="time_elapsed"></span>
+        </div>
+            <button type="button" id="order_recieved_btn" class="btn btn-primary">
+						<span class="fa">Order Recieved
+						</span>
+					</button>
+            
+            <div id="reviewDiv" style="visibility:hidden">
+                <h4>Please rate your runner:</h4>
+                1<input type="radio" value="1" name="rating">
+                2<input type="radio" value="2" name="rating">
+                3<input type="radio" value="3" name="rating">
+                4<input type="radio" value="4" name="rating">
+                5<input type="radio" value="5" name="rating">
+                <br />
+                Review:<br />
+                <textarea></textarea>
+                <button type="button" id="submit_review_btn" class="btn btn-primary">
+						<span class="fa">Submit
+						</span>
+					</button>
+            </div>
 </template>
+
+
 
 <template name="RunnerReviewRunnerReviewListTableItems">
 	<tr id="dataview-table-items-row">
