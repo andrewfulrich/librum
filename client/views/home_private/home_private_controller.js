@@ -19,6 +19,7 @@ this.HomePrivateController = RouteController.extend({
 		
 
 		var subs = [
+			Meteor.subscribe("events_list")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -32,7 +33,8 @@ this.HomePrivateController = RouteController.extend({
 		
 
 		return {
-			params: this.params || {}
+			params: this.params || {},
+			events_list: Events.find({}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

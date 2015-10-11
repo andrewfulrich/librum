@@ -485,7 +485,21 @@
 				{
 					"name": "home_private",
 					"title": "Welcome {{userFullName}}!",
-					"type": "page"
+					"type": "page",
+					"components": [
+						{
+							"name": "other_event_list_view",
+							"title": "Events",
+							"query_name": "eventsList",
+							"type": "data_view",
+							"details_route_params": [
+								{
+									"name": "event_id",
+									"value": "this._id"
+								}
+							]
+						}
+					]
 				},
 				{
 					"name": "user_settings",
