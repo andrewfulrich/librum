@@ -34,6 +34,10 @@
 						"name": "eventImage",
 						"title": "Image",
 						"type": "string"
+					},
+					{
+						"name": "venueName",
+						"type": "string"
 					}
 				]
 			},
@@ -133,7 +137,7 @@
 				]
 			},
 			{
-				"name": "Orders",
+				"name": "orders",
 				"type": "collection",
 				"roles_allowed_to_read": [
 					"user"
@@ -158,7 +162,15 @@
 						"name": "runner",
 						"title": "Runner",
 						"type": "string",
-						"join_collection": "users"
+						"join_collection": "users",
+						"input": "select",
+						"lookup_query_name": "runnerStatusList",
+						"lookup_key": "_id",
+						"lookup_field": "_id"
+					},
+					{
+						"name": "buyer",
+						"type": "string"
 					}
 				]
 			},
@@ -203,6 +215,38 @@
 						"lookup_key": "_id",
 						"lookup_field": "venueName",
 						"join_collection": "venues"
+					}
+				]
+			},
+			{
+				"name": "runnerStatus",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "user_id",
+						"type": "string",
+						"join_collection": "users"
+					},
+					{
+						"name": "status",
+						"title": "Status",
+						"type": "string",
+						"input": "select",
+						"lookup_query_name": "runnerStatesList",
+						"lookup_key": "_id",
+						"lookup_field": "name",
+						"join_collection": "runnerStates"
+					}
+				]
+			},
+			{
+				"name": "runnerStates",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "name",
+						"title": "Name",
+						"type": "string"
 					}
 				]
 			}
@@ -293,6 +337,46 @@
 			{
 				"name": "addProductQuery",
 				"collection": "products",
+				"find_one": true,
+				"filter": {
+					"_id": null
+				}
+			},
+			{
+				"name": "runnerStatesList",
+				"collection": "runnerStates"
+			},
+			{
+				"name": "addRunnerStatus",
+				"collection": "runnerStatus",
+				"find_one": true,
+				"filter": {
+					"_id": null
+				}
+			},
+			{
+				"name": "runnerStatusList",
+				"collection": "runnerStatus"
+			},
+			{
+				"name": "addRunnerStates",
+				"collection": "runnerStates",
+				"find_one": true,
+				"filter": {
+					"_id": null
+				}
+			},
+			{
+				"name": "userList",
+				"collection": "users"
+			},
+			{
+				"name": "ordersList",
+				"collection": "orders"
+			},
+			{
+				"name": "addOrdersQuery",
+				"collection": "orders",
 				"find_one": true,
 				"filter": {
 					"_id": null
@@ -477,16 +561,17 @@
 								}
 							]
 						}
-					]
+					],
+					"custom_template": "client/views/events/eventsListBetter"
 				},
 				{
-					"name": "products_menu",
+					"name": "venue_menu",
 					"title": "Menu",
 					"type": "page",
 					"components": [
 						{
 							"name": "menu_items",
-							"query_name": "products_list",
+							"query_name": "productsList",
 							"type": "data_view"
 						}
 					]
@@ -644,6 +729,56 @@
 							"type": "form"
 						}
 					]
+				},
+				{
+					"name": "runner_status_admin",
+					"title": "Runner Status Admin",
+					"type": "page",
+					"components": [
+						{
+							"name": "runner_status_list_view",
+							"query_name": "runnerStatusList",
+							"type": "data_view"
+						},
+						{
+							"name": "add_runner_status_form",
+							"title": "Add Runner",
+							"query_name": "addRunnerStatus",
+							"mode": "insert",
+							"submit_route": "runner_status_admin",
+							"type": "form"
+						}
+					]
+				},
+				{
+					"name": "runner_state_admin",
+					"title": "Runner State Admin",
+					"type": "page",
+					"components": [
+						{
+							"name": "runner_state_list_view",
+							"query_name": "runnerStatesList",
+							"type": "data_view"
+						},
+						{
+							"name": "add_runner_state_form",
+							"title": "Add Runner State",
+							"query_name": "addRunnerStates",
+							"mode": "insert",
+							"submit_route": "runner_state_admin",
+							"type": "form"
+						}
+					]
+				},
+				{
+					"name": "runner_selection",
+					"query_name": "runnerStatusList",
+					"type": "page"
+				},
+				{
+					"name": "orders_admin",
+					"title": "Orders Admin",
+					"type": "page"
 				}
 			],
 			"components": [

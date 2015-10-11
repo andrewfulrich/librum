@@ -1,27 +1,19 @@
-<template name="Events">
-	<table id="dataview-table" class="table table-striped">
-		<thead id="dataview-table-header">
-			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="eventName">
-					Event Name
-				</th>
-				<th class="th-sortable" data-sort="venue">
-					venue
-				</th>
-				<th class="th-sortable" data-sort="eventImage">
-					Image
-				</th>
-			</tr>
-		</thead>
-		<tbody id="dataview-table-items">
-			test		
-			{{#each tableItems}} {{> EventsEventsTableItems}} {{/each}}
-		</tbody>
-	</table>
-	{{> EventsEvents}}
+<template name="VenueMenu">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Menu
+				</h2>
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		{{> VenueMenuMenuItems}}
+	</div>
 </template>
 
-<template name="EventsEvents">
+<template name="VenueMenuMenuItems">
 	<div id="data_view" class="">
 		<form id="dataview-controls" class="form-inline">
 			<div id="dataview-controls-search">
@@ -46,7 +38,7 @@
 		</div>
 		{{else}}
 		<div id="dataview-data">
-			{{#if viewAsTable}} {{> EventsEventsTable}} {{/if}}
+			{{#if viewAsTable}} {{> VenueMenuMenuItemsTable}} {{/if}}
 		</div>
 		{{/if}}	
 		{{else}}
@@ -57,43 +49,43 @@
 	</div>
 </template>
 
-<template name="EventsEventsTable">
+<template name="VenueMenuMenuItemsTable">
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="eventName">
-					Event Name
+				<th class="th-sortable" data-sort="productName">
+					Product Name
 				</th>
-				<th class="th-sortable" data-sort="venue">
-					venue
+				<th class="th-sortable" data-sort="productVendor">
+					Vendor
 				</th>
-				<th class="th-sortable" data-sort="eventImage">
+				<th class="th-sortable" data-sort="productPrice">
+					Price
+				</th>
+				<th class="th-sortable" data-sort="productImage">
 					Image
-				</th>
-				<th class="th-sortable" data-sort="venueName">
-					venueName
 				</th>
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> EventsEventsTableItems}} {{/each}}
+			{{#each tableItems}} {{> VenueMenuMenuItemsTableItems}} {{/each}}
 		</tbody>
 	</table>
 </template>
 
-<template name="EventsEventsTableItems">
+<template name="VenueMenuMenuItemsTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{eventName}}
+			{{productName}}
 		</td>
 		<td>
-			{{venue}}
+			{{productVendor}}
 		</td>
 		<td>
-			{{eventImage}}
+			{{productPrice}}
 		</td>
 		<td>
-			{{venueName}}
+			{{productImage}}
 		</td>
 	</tr>
 </template>

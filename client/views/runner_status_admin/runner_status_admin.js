@@ -1,25 +1,25 @@
 var pageSession = new ReactiveDict();
 
-Template.EventAdmin.rendered = function() {
+Template.RunnerStatusAdmin.rendered = function() {
 	
 };
 
-Template.EventAdmin.events({
+Template.RunnerStatusAdmin.events({
 	
 });
 
-Template.EventAdmin.helpers({
+Template.RunnerStatusAdmin.helpers({
 	
 });
 
-var EventAdminEventAdminListItems = function(cursor) {
+var RunnerStatusAdminRunnerStatusListViewItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("EventAdminEventAdminListSearchString");
-	var sortBy = pageSession.get("EventAdminEventAdminListSortBy");
-	var sortAscending = pageSession.get("EventAdminEventAdminListSortAscending");
+	var searchString = pageSession.get("RunnerStatusAdminRunnerStatusListViewSearchString");
+	var sortBy = pageSession.get("RunnerStatusAdminRunnerStatusListViewSortBy");
+	var sortAscending = pageSession.get("RunnerStatusAdminRunnerStatusListViewSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -31,7 +31,7 @@ var EventAdminEventAdminListItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["eventName", "venue", "eventImage", "venueName"];
+		var searchFields = ["user_id", "status"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -59,8 +59,8 @@ var EventAdminEventAdminListItems = function(cursor) {
 	return filtered;
 };
 
-var EventAdminEventAdminListExport = function(cursor, fileType) {
-	var data = EventAdminEventAdminListItems(cursor);
+var RunnerStatusAdminRunnerStatusListViewExport = function(cursor, fileType) {
+	var data = RunnerStatusAdminRunnerStatusListViewItems(cursor);
 	var exportFields = [];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
@@ -71,12 +71,12 @@ var EventAdminEventAdminListExport = function(cursor, fileType) {
 }
 
 
-Template.EventAdminEventAdminList.rendered = function() {
-	pageSession.set("EventAdminEventAdminListStyle", "table");
+Template.RunnerStatusAdminRunnerStatusListView.rendered = function() {
+	pageSession.set("RunnerStatusAdminRunnerStatusListViewStyle", "table");
 	
 };
 
-Template.EventAdminEventAdminList.events({
+Template.RunnerStatusAdminRunnerStatusListView.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -89,7 +89,7 @@ Template.EventAdminEventAdminList.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("EventAdminEventAdminListSearchString", searchString);
+				pageSession.set("RunnerStatusAdminRunnerStatusListViewSearchString", searchString);
 			}
 
 		}
@@ -105,7 +105,7 @@ Template.EventAdminEventAdminList.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("EventAdminEventAdminListSearchString", searchString);
+					pageSession.set("RunnerStatusAdminRunnerStatusListViewSearchString", searchString);
 				}
 
 			}
@@ -120,7 +120,7 @@ Template.EventAdminEventAdminList.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("EventAdminEventAdminListSearchString", "");
+					pageSession.set("RunnerStatusAdminRunnerStatusListViewSearchString", "");
 				}
 
 			}
@@ -137,91 +137,91 @@ Template.EventAdminEventAdminList.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		EventAdminEventAdminListExport(this.events_list, "csv");
+		RunnerStatusAdminRunnerStatusListViewExport(this.runner_status_list, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		EventAdminEventAdminListExport(this.events_list, "csv");
+		RunnerStatusAdminRunnerStatusListViewExport(this.runner_status_list, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		EventAdminEventAdminListExport(this.events_list, "tsv");
+		RunnerStatusAdminRunnerStatusListViewExport(this.runner_status_list, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		EventAdminEventAdminListExport(this.events_list, "json");
+		RunnerStatusAdminRunnerStatusListViewExport(this.runner_status_list, "json");
 	}
 
 	
 });
 
-Template.EventAdminEventAdminList.helpers({
+Template.RunnerStatusAdminRunnerStatusListView.helpers({
 
 	"insertButtonClass": function() {
-		return Events.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+		return RunnerStatus.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
 	},
 
 	"isEmpty": function() {
-		return !this.events_list || this.events_list.count() == 0;
+		return !this.runner_status_list || this.runner_status_list.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.events_list && this.events_list.count() > 0;
+		return this.runner_status_list && this.runner_status_list.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.events_list && pageSession.get("EventAdminEventAdminListSearchString") && EventAdminEventAdminListItems(this.events_list).length == 0;
+		return this.runner_status_list && pageSession.get("RunnerStatusAdminRunnerStatusListViewSearchString") && RunnerStatusAdminRunnerStatusListViewItems(this.runner_status_list).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("EventAdminEventAdminListSearchString");
+		return pageSession.get("RunnerStatusAdminRunnerStatusListViewSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("EventAdminEventAdminListStyle") == "table";
+		return pageSession.get("RunnerStatusAdminRunnerStatusListViewStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("EventAdminEventAdminListStyle") == "list";
+		return pageSession.get("RunnerStatusAdminRunnerStatusListViewStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("EventAdminEventAdminListStyle") == "gallery";
+		return pageSession.get("RunnerStatusAdminRunnerStatusListViewStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.EventAdminEventAdminListTable.rendered = function() {
+Template.RunnerStatusAdminRunnerStatusListViewTable.rendered = function() {
 	
 };
 
-Template.EventAdminEventAdminListTable.events({
+Template.RunnerStatusAdminRunnerStatusListViewTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("EventAdminEventAdminListSortBy");
+		var oldSortBy = pageSession.get("RunnerStatusAdminRunnerStatusListViewSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("EventAdminEventAdminListSortBy", newSortBy);
+		pageSession.set("RunnerStatusAdminRunnerStatusListViewSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("EventAdminEventAdminListSortAscending") || false;
-			pageSession.set("EventAdminEventAdminListSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("RunnerStatusAdminRunnerStatusListViewSortAscending") || false;
+			pageSession.set("RunnerStatusAdminRunnerStatusListViewSortAscending", !sortAscending);
 		} else {
-			pageSession.set("EventAdminEventAdminListSortAscending", true);
+			pageSession.set("RunnerStatusAdminRunnerStatusListViewSortAscending", true);
 		}
 	}
 });
 
-Template.EventAdminEventAdminListTable.helpers({
+Template.RunnerStatusAdminRunnerStatusListViewTable.helpers({
 	"tableItems": function() {
-		return EventAdminEventAdminListItems(this.events_list);
+		return RunnerStatusAdminRunnerStatusListViewItems(this.runner_status_list);
 	}
 });
 
 
-Template.EventAdminEventAdminListTableItems.rendered = function() {
+Template.RunnerStatusAdminRunnerStatusListViewTableItems.rendered = function() {
 	
 };
 
-Template.EventAdminEventAdminListTableItems.events({
+Template.RunnerStatusAdminRunnerStatusListViewTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
 		/**/
@@ -239,7 +239,7 @@ Template.EventAdminEventAdminListTableItems.events({
 		var values = {};
 		values[fieldName] = !this[fieldName];
 
-		Events.update({ _id: this._id }, { $set: values });
+		RunnerStatus.update({ _id: this._id }, { $set: values });
 
 		return false;
 	},
@@ -256,7 +256,7 @@ Template.EventAdminEventAdminListTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						Events.remove({ _id: me._id });
+						RunnerStatus.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -274,22 +274,22 @@ Template.EventAdminEventAdminListTableItems.events({
 	}
 });
 
-Template.EventAdminEventAdminListTableItems.helpers({
+Template.RunnerStatusAdminRunnerStatusListViewTableItems.helpers({
 	"checked": function(value) { return value ? "checked" : "" }, 
 	"editButtonClass": function() {
-		return Events.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
+		return RunnerStatus.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
 	},
 
 	"deleteButtonClass": function() {
-		return Events.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
+		return RunnerStatus.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
 	}
 });
 
-Template.EventAdminAddEvent.rendered = function() {
+Template.RunnerStatusAdminAddRunnerStatusForm.rendered = function() {
 	
 
-	pageSession.set("eventAdminAddEventInfoMessage", "");
-	pageSession.set("eventAdminAddEventErrorMessage", "");
+	pageSession.set("runnerStatusAdminAddRunnerStatusFormInfoMessage", "");
+	pageSession.set("runnerStatusAdminAddRunnerStatusFormErrorMessage", "");
 
 	$(".input-group.date").each(function() {
 		var format = $(this).find("input[type='text']").attr("data-format");
@@ -317,36 +317,36 @@ Template.EventAdminAddEvent.rendered = function() {
 	$("input[autofocus]").focus();
 };
 
-Template.EventAdminAddEvent.events({
+Template.RunnerStatusAdminAddRunnerStatusForm.events({
 	"submit": function(e, t) {
 		e.preventDefault();
-		pageSession.set("eventAdminAddEventInfoMessage", "");
-		pageSession.set("eventAdminAddEventErrorMessage", "");
+		pageSession.set("runnerStatusAdminAddRunnerStatusFormInfoMessage", "");
+		pageSession.set("runnerStatusAdminAddRunnerStatusFormErrorMessage", "");
 
 		var self = this;
 
 		function submitAction(msg) {
-			var eventAdminAddEventMode = "insert";
+			var runnerStatusAdminAddRunnerStatusFormMode = "insert";
 			if(!t.find("#form-cancel-button")) {
-				switch(eventAdminAddEventMode) {
+				switch(runnerStatusAdminAddRunnerStatusFormMode) {
 					case "insert": {
 						$(e.target)[0].reset();
 					}; break;
 
 					case "update": {
 						var message = msg || "Saved.";
-						pageSession.set("eventAdminAddEventInfoMessage", message);
+						pageSession.set("runnerStatusAdminAddRunnerStatusFormInfoMessage", message);
 					}; break;
 				}
 			}
 
-			Router.go("event_admin", {});
+			Router.go("runner_status_admin", {});
 		}
 
 		function errorAction(msg) {
 			msg = msg || "";
 			var message = msg.message || msg || "Error.";
-			pageSession.set("eventAdminAddEventErrorMessage", message);
+			pageSession.set("runnerStatusAdminAddRunnerStatusFormErrorMessage", message);
 		}
 
 		validateForm(
@@ -360,7 +360,7 @@ Template.EventAdminAddEvent.events({
 			function(values) {
 				
 
-				newId = Events.insert(values, function(e) { if(e) errorAction(e); else submitAction(); });
+				newId = RunnerStatus.insert(values, function(e) { if(e) errorAction(e); else submitAction(); });
 			}
 		);
 
@@ -371,7 +371,7 @@ Template.EventAdminAddEvent.events({
 
 		
 
-		Router.go("event_admin", {});
+		/*CANCEL_REDIRECT*/
 	},
 	"click #form-close-button": function(e, t) {
 		e.preventDefault();
@@ -387,12 +387,12 @@ Template.EventAdminAddEvent.events({
 	
 });
 
-Template.EventAdminAddEvent.helpers({
+Template.RunnerStatusAdminAddRunnerStatusForm.helpers({
 	"infoMessage": function() {
-		return pageSession.get("eventAdminAddEventInfoMessage");
+		return pageSession.get("runnerStatusAdminAddRunnerStatusFormInfoMessage");
 	},
 	"errorMessage": function() {
-		return pageSession.get("eventAdminAddEventErrorMessage");
+		return pageSession.get("runnerStatusAdminAddRunnerStatusFormErrorMessage");
 	}
 	
 });

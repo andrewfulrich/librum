@@ -1,25 +1,25 @@
 var pageSession = new ReactiveDict();
 
-Template.EventAdmin.rendered = function() {
+Template.RunnerStateAdmin.rendered = function() {
 	
 };
 
-Template.EventAdmin.events({
+Template.RunnerStateAdmin.events({
 	
 });
 
-Template.EventAdmin.helpers({
+Template.RunnerStateAdmin.helpers({
 	
 });
 
-var EventAdminEventAdminListItems = function(cursor) {
+var RunnerStateAdminRunnerStateListViewItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("EventAdminEventAdminListSearchString");
-	var sortBy = pageSession.get("EventAdminEventAdminListSortBy");
-	var sortAscending = pageSession.get("EventAdminEventAdminListSortAscending");
+	var searchString = pageSession.get("RunnerStateAdminRunnerStateListViewSearchString");
+	var sortBy = pageSession.get("RunnerStateAdminRunnerStateListViewSortBy");
+	var sortAscending = pageSession.get("RunnerStateAdminRunnerStateListViewSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -31,7 +31,7 @@ var EventAdminEventAdminListItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["eventName", "venue", "eventImage", "venueName"];
+		var searchFields = ["name"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -59,8 +59,8 @@ var EventAdminEventAdminListItems = function(cursor) {
 	return filtered;
 };
 
-var EventAdminEventAdminListExport = function(cursor, fileType) {
-	var data = EventAdminEventAdminListItems(cursor);
+var RunnerStateAdminRunnerStateListViewExport = function(cursor, fileType) {
+	var data = RunnerStateAdminRunnerStateListViewItems(cursor);
 	var exportFields = [];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
@@ -71,12 +71,12 @@ var EventAdminEventAdminListExport = function(cursor, fileType) {
 }
 
 
-Template.EventAdminEventAdminList.rendered = function() {
-	pageSession.set("EventAdminEventAdminListStyle", "table");
+Template.RunnerStateAdminRunnerStateListView.rendered = function() {
+	pageSession.set("RunnerStateAdminRunnerStateListViewStyle", "table");
 	
 };
 
-Template.EventAdminEventAdminList.events({
+Template.RunnerStateAdminRunnerStateListView.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -89,7 +89,7 @@ Template.EventAdminEventAdminList.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("EventAdminEventAdminListSearchString", searchString);
+				pageSession.set("RunnerStateAdminRunnerStateListViewSearchString", searchString);
 			}
 
 		}
@@ -105,7 +105,7 @@ Template.EventAdminEventAdminList.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("EventAdminEventAdminListSearchString", searchString);
+					pageSession.set("RunnerStateAdminRunnerStateListViewSearchString", searchString);
 				}
 
 			}
@@ -120,7 +120,7 @@ Template.EventAdminEventAdminList.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("EventAdminEventAdminListSearchString", "");
+					pageSession.set("RunnerStateAdminRunnerStateListViewSearchString", "");
 				}
 
 			}
@@ -137,91 +137,91 @@ Template.EventAdminEventAdminList.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		EventAdminEventAdminListExport(this.events_list, "csv");
+		RunnerStateAdminRunnerStateListViewExport(this.runner_states_list, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		EventAdminEventAdminListExport(this.events_list, "csv");
+		RunnerStateAdminRunnerStateListViewExport(this.runner_states_list, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		EventAdminEventAdminListExport(this.events_list, "tsv");
+		RunnerStateAdminRunnerStateListViewExport(this.runner_states_list, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		EventAdminEventAdminListExport(this.events_list, "json");
+		RunnerStateAdminRunnerStateListViewExport(this.runner_states_list, "json");
 	}
 
 	
 });
 
-Template.EventAdminEventAdminList.helpers({
+Template.RunnerStateAdminRunnerStateListView.helpers({
 
 	"insertButtonClass": function() {
-		return Events.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+		return RunnerStates.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
 	},
 
 	"isEmpty": function() {
-		return !this.events_list || this.events_list.count() == 0;
+		return !this.runner_states_list || this.runner_states_list.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.events_list && this.events_list.count() > 0;
+		return this.runner_states_list && this.runner_states_list.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.events_list && pageSession.get("EventAdminEventAdminListSearchString") && EventAdminEventAdminListItems(this.events_list).length == 0;
+		return this.runner_states_list && pageSession.get("RunnerStateAdminRunnerStateListViewSearchString") && RunnerStateAdminRunnerStateListViewItems(this.runner_states_list).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("EventAdminEventAdminListSearchString");
+		return pageSession.get("RunnerStateAdminRunnerStateListViewSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("EventAdminEventAdminListStyle") == "table";
+		return pageSession.get("RunnerStateAdminRunnerStateListViewStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("EventAdminEventAdminListStyle") == "list";
+		return pageSession.get("RunnerStateAdminRunnerStateListViewStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("EventAdminEventAdminListStyle") == "gallery";
+		return pageSession.get("RunnerStateAdminRunnerStateListViewStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.EventAdminEventAdminListTable.rendered = function() {
+Template.RunnerStateAdminRunnerStateListViewTable.rendered = function() {
 	
 };
 
-Template.EventAdminEventAdminListTable.events({
+Template.RunnerStateAdminRunnerStateListViewTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("EventAdminEventAdminListSortBy");
+		var oldSortBy = pageSession.get("RunnerStateAdminRunnerStateListViewSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("EventAdminEventAdminListSortBy", newSortBy);
+		pageSession.set("RunnerStateAdminRunnerStateListViewSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("EventAdminEventAdminListSortAscending") || false;
-			pageSession.set("EventAdminEventAdminListSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("RunnerStateAdminRunnerStateListViewSortAscending") || false;
+			pageSession.set("RunnerStateAdminRunnerStateListViewSortAscending", !sortAscending);
 		} else {
-			pageSession.set("EventAdminEventAdminListSortAscending", true);
+			pageSession.set("RunnerStateAdminRunnerStateListViewSortAscending", true);
 		}
 	}
 });
 
-Template.EventAdminEventAdminListTable.helpers({
+Template.RunnerStateAdminRunnerStateListViewTable.helpers({
 	"tableItems": function() {
-		return EventAdminEventAdminListItems(this.events_list);
+		return RunnerStateAdminRunnerStateListViewItems(this.runner_states_list);
 	}
 });
 
 
-Template.EventAdminEventAdminListTableItems.rendered = function() {
+Template.RunnerStateAdminRunnerStateListViewTableItems.rendered = function() {
 	
 };
 
-Template.EventAdminEventAdminListTableItems.events({
+Template.RunnerStateAdminRunnerStateListViewTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
 		/**/
@@ -239,7 +239,7 @@ Template.EventAdminEventAdminListTableItems.events({
 		var values = {};
 		values[fieldName] = !this[fieldName];
 
-		Events.update({ _id: this._id }, { $set: values });
+		RunnerStates.update({ _id: this._id }, { $set: values });
 
 		return false;
 	},
@@ -256,7 +256,7 @@ Template.EventAdminEventAdminListTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						Events.remove({ _id: me._id });
+						RunnerStates.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -274,22 +274,22 @@ Template.EventAdminEventAdminListTableItems.events({
 	}
 });
 
-Template.EventAdminEventAdminListTableItems.helpers({
+Template.RunnerStateAdminRunnerStateListViewTableItems.helpers({
 	"checked": function(value) { return value ? "checked" : "" }, 
 	"editButtonClass": function() {
-		return Events.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
+		return RunnerStates.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
 	},
 
 	"deleteButtonClass": function() {
-		return Events.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
+		return RunnerStates.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
 	}
 });
 
-Template.EventAdminAddEvent.rendered = function() {
+Template.RunnerStateAdminAddRunnerStateForm.rendered = function() {
 	
 
-	pageSession.set("eventAdminAddEventInfoMessage", "");
-	pageSession.set("eventAdminAddEventErrorMessage", "");
+	pageSession.set("runnerStateAdminAddRunnerStateFormInfoMessage", "");
+	pageSession.set("runnerStateAdminAddRunnerStateFormErrorMessage", "");
 
 	$(".input-group.date").each(function() {
 		var format = $(this).find("input[type='text']").attr("data-format");
@@ -317,36 +317,36 @@ Template.EventAdminAddEvent.rendered = function() {
 	$("input[autofocus]").focus();
 };
 
-Template.EventAdminAddEvent.events({
+Template.RunnerStateAdminAddRunnerStateForm.events({
 	"submit": function(e, t) {
 		e.preventDefault();
-		pageSession.set("eventAdminAddEventInfoMessage", "");
-		pageSession.set("eventAdminAddEventErrorMessage", "");
+		pageSession.set("runnerStateAdminAddRunnerStateFormInfoMessage", "");
+		pageSession.set("runnerStateAdminAddRunnerStateFormErrorMessage", "");
 
 		var self = this;
 
 		function submitAction(msg) {
-			var eventAdminAddEventMode = "insert";
+			var runnerStateAdminAddRunnerStateFormMode = "insert";
 			if(!t.find("#form-cancel-button")) {
-				switch(eventAdminAddEventMode) {
+				switch(runnerStateAdminAddRunnerStateFormMode) {
 					case "insert": {
 						$(e.target)[0].reset();
 					}; break;
 
 					case "update": {
 						var message = msg || "Saved.";
-						pageSession.set("eventAdminAddEventInfoMessage", message);
+						pageSession.set("runnerStateAdminAddRunnerStateFormInfoMessage", message);
 					}; break;
 				}
 			}
 
-			Router.go("event_admin", {});
+			Router.go("runner_state_admin", {});
 		}
 
 		function errorAction(msg) {
 			msg = msg || "";
 			var message = msg.message || msg || "Error.";
-			pageSession.set("eventAdminAddEventErrorMessage", message);
+			pageSession.set("runnerStateAdminAddRunnerStateFormErrorMessage", message);
 		}
 
 		validateForm(
@@ -360,7 +360,7 @@ Template.EventAdminAddEvent.events({
 			function(values) {
 				
 
-				newId = Events.insert(values, function(e) { if(e) errorAction(e); else submitAction(); });
+				newId = RunnerStates.insert(values, function(e) { if(e) errorAction(e); else submitAction(); });
 			}
 		);
 
@@ -371,7 +371,7 @@ Template.EventAdminAddEvent.events({
 
 		
 
-		Router.go("event_admin", {});
+		/*CANCEL_REDIRECT*/
 	},
 	"click #form-close-button": function(e, t) {
 		e.preventDefault();
@@ -387,12 +387,12 @@ Template.EventAdminAddEvent.events({
 	
 });
 
-Template.EventAdminAddEvent.helpers({
+Template.RunnerStateAdminAddRunnerStateForm.helpers({
 	"infoMessage": function() {
-		return pageSession.get("eventAdminAddEventInfoMessage");
+		return pageSession.get("runnerStateAdminAddRunnerStateFormInfoMessage");
 	},
 	"errorMessage": function() {
-		return pageSession.get("eventAdminAddEventErrorMessage");
+		return pageSession.get("runnerStateAdminAddRunnerStateFormErrorMessage");
 	}
 	
 });

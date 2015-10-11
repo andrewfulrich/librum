@@ -1,19 +1,19 @@
-<template name="EventAdmin">
+<template name="RunnerStatusAdmin">
 	<div class="page-container container" id="content">
 		<div class="row" id="title_row">
 			<div class="col-md-12">
 				<h2 id="page_title" class="pull-left">
-					Event Admin
+					Runner Status Admin
 				</h2>
 				<div id="page_menu" class="pull-right">
 				</div>
 			</div>
 		</div>
-		{{> EventAdminEventAdminList}}{{> EventAdminAddEvent}}
+		{{> RunnerStatusAdminRunnerStatusListView}}{{> RunnerStatusAdminAddRunnerStatusForm}}
 	</div>
 </template>
 
-<template name="EventAdminEventAdminList">
+<template name="RunnerStatusAdminRunnerStatusListView">
 	<div id="data_view" class="">
 		<form id="dataview-controls" class="form-inline">
 			<div id="dataview-controls-search">
@@ -38,7 +38,7 @@
 		</div>
 		{{else}}
 		<div id="dataview-data">
-			{{#if viewAsTable}} {{> EventAdminEventAdminListTable}} {{/if}}
+			{{#if viewAsTable}} {{> RunnerStatusAdminRunnerStatusListViewTable}} {{/if}}
 		</div>
 		{{/if}}	
 		{{else}}
@@ -49,51 +49,39 @@
 	</div>
 </template>
 
-<template name="EventAdminEventAdminListTable">
+<template name="RunnerStatusAdminRunnerStatusListViewTable">
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="eventName">
-					Event Name
+				<th class="th-sortable" data-sort="user_id">
+					user_id
 				</th>
-				<th class="th-sortable" data-sort="venue">
-					venue
-				</th>
-				<th class="th-sortable" data-sort="eventImage">
-					Image
-				</th>
-				<th class="th-sortable" data-sort="venueName">
-					venueName
+				<th class="th-sortable" data-sort="status">
+					Status
 				</th>
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> EventAdminEventAdminListTableItems}} {{/each}}
+			{{#each tableItems}} {{> RunnerStatusAdminRunnerStatusListViewTableItems}} {{/each}}
 		</tbody>
 	</table>
 </template>
 
-<template name="EventAdminEventAdminListTableItems">
+<template name="RunnerStatusAdminRunnerStatusListViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{eventName}}
+			{{user_id}}
 		</td>
 		<td>
-			{{venue}}
-		</td>
-		<td>
-			{{eventImage}}
-		</td>
-		<td>
-			{{venueName}}
+			{{status}}
 		</td>
 	</tr>
 </template>
 
-<template name="EventAdminAddEvent">
+<template name="RunnerStatusAdminAddRunnerStatusForm">
 	<div class="">
 		<h2 id="component-title">
-			Add Event
+			Add Runner
 		</h2>
 		<form id="form" role="form">
 			{{#if errorMessage}}
@@ -107,52 +95,29 @@
 				{{infoMessage}}
 			</div>
 			{{/if}}
-			<div class="form-group  field-event-name">
-				<label for="eventName">
-					Event Name
+			<div class="form-group  field-user_id">
+				<label for="user_id">
 				</label>
 				<div class="input-div">
-					<input type="text" name="eventName" value="" class="form-control" autofocus="autofocus" data-type="string">
+					<input type="text" name="user_id" value="" class="form-control" autofocus="autofocus" data-type="string">
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">
 					</span>
 				</div>
 			</div>
-			<div class="form-group  field-venue">
-				<label for="venue">
+			<div class="form-group  field-status">
+				<label for="status">
+					Status
 				</label>
 				<div class="input-div">
-					<select class="form-control" name="venue" data-type="string">
-						{{#each venues_list}}
+					<select class="form-control" name="status" data-type="string">
+						{{#each runner_states_list}}
 						<option value="{{_id}}">
-							{{venueName}}
+							{{name}}
 						</option>
 						{{/each}}
 					</select>
-					<span id="help-text" class="help-block">
-					</span>
-					<span id="error-text" class="help-block">
-					</span>
-				</div>
-			</div>
-			<div class="form-group  field-event-image">
-				<label for="eventImage">
-					Image
-				</label>
-				<div class="input-div">
-					<input type="text" name="eventImage" value="" class="form-control" data-type="string">
-					<span id="help-text" class="help-block">
-					</span>
-					<span id="error-text" class="help-block">
-					</span>
-				</div>
-			</div>
-			<div class="form-group  field-venue-name">
-				<label for="venueName">
-				</label>
-				<div class="input-div">
-					<input type="text" name="venueName" value="" class="form-control" data-type="string">
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">
@@ -166,9 +131,6 @@
 						</span>
 						Save
 					</button>
-					<a href="#" id="form-cancel-button" class="btn btn-default">
-						Cancel
-					</a>
 				</div>
 			</div>
 		</form>
