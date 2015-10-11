@@ -340,7 +340,7 @@ Template.OrdersAdminAddOrdersForm.events({
 				}
 			}
 
-			/*SUBMIT_REDIRECT*/
+			Router.go("orders_admin", {});
 		}
 
 		function errorAction(msg) {
