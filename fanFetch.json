@@ -773,12 +773,79 @@
 				{
 					"name": "runner_selection",
 					"query_name": "runnerStatusList",
-					"type": "page"
+					"type": "page",
+					"components": [
+						{
+							"name": "runner_list_view",
+							"title": "Available Runners",
+							"query_name": "runnerStatusList",
+							"type": "data_view"
+						}
+					]
 				},
 				{
 					"name": "orders_admin",
 					"title": "Orders Admin",
-					"type": "page"
+					"type": "page",
+					"components": [
+						{
+							"name": "orders_list_viewb",
+							"title": "Orders",
+							"query_name": "ordersList",
+							"type": "data_view"
+						},
+						{
+							"name": "add_orders_form",
+							"query_name": "addOrdersQuery",
+							"mode": "insert",
+							"type": "form"
+						}
+					]
+				},
+				{
+					"name": "shopping_cart",
+					"type": "page",
+					"components": [
+						{
+							"name": "orders_list_view",
+							"query_name": "ordersList",
+							"type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "check_out",
+					"type": "page",
+					"components": [
+						{
+							"name": "orders_list_view",
+							"query_name": "ordersList",
+							"type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "order_confirmation",
+					"type": "page",
+					"components": [
+						{
+							"name": "order_confirmation_list_view",
+							"query_name": "ordersList",
+							"type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "runner_review",
+					"title": "Runner Review",
+					"type": "page",
+					"components": [
+						{
+							"name": "runner_review_list",
+							"query_name": "runnerStatusList",
+							"type": "data_view"
+						}
+					]
 				}
 			],
 			"components": [
@@ -811,6 +878,18 @@
 						{
 							"title": "Product Admin",
 							"route": "product_admin"
+						},
+						{
+							"title": "Runner Admin",
+							"route": "runner_status_admin"
+						},
+						{
+							"title": "Runner State Admin",
+							"route": "runner_state_admin"
+						},
+						{
+							"title": "Orders Admin",
+							"route": "orders_admin"
 						}
 					]
 				},

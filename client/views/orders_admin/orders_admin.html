@@ -9,6 +9,144 @@
 				</div>
 			</div>
 		</div>
+		{{> OrdersAdminOrdersListViewb}}{{> OrdersAdminAddOrdersForm}}
+	</div>
+</template>
+
+<template name="OrdersAdminOrdersListViewb">
+	<div id="data_view" class="">
+		<h2 id="component-title">
+			Orders
+		</h2>
+		<form id="dataview-controls" class="form-inline">
+			<div id="dataview-controls-search">
+				{{#if isNotEmpty}}
+				<div id="dataview-controls-search-group" class="form-group">
+					<label class="sr-only" for="search">
+						Search
+					</label>
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<button type="button" id="dataview-search-button" class="btn btn-primary">
+						<span class="fa fa-search">
+						</span>
+					</button>
+				</div>
+				{{/if}}
+			</div>
+		</form>
+		{{#if isNotEmpty}}	
+			{{#if isNotFound}}
+		<div class="alert alert-warning">
+			"{{searchString}}" not found.
+		</div>
+		{{else}}
+		<div id="dataview-data">
+			{{#if viewAsTable}} {{> OrdersAdminOrdersListViewbTable}} {{/if}}
+		</div>
+		{{/if}}	
+		{{else}}
+		<div class="alert alert-info">
+			Empty.
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="OrdersAdminOrdersListViewbTable">
+	<table id="dataview-table" class="table table-striped">
+		<thead id="dataview-table-header">
+			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="productsOrdered">
+					Your Order
+				</th>
+				<th class="th-sortable" data-sort="runner">
+					Runner
+				</th>
+				<th class="th-sortable" data-sort="buyer">
+					buyer
+				</th>
+			</tr>
+		</thead>
+		<tbody id="dataview-table-items">
+			{{#each tableItems}} {{> OrdersAdminOrdersListViewbTableItems}} {{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="OrdersAdminOrdersListViewbTableItems">
+	<tr id="dataview-table-items-row">
+		<td>
+			{{productsOrdered}}
+		</td>
+		<td>
+			{{runner}}
+		</td>
+		<td>
+			{{buyer}}
+		</td>
+	</tr>
+</template>
+
+<template name="OrdersAdminAddOrdersForm">
+	<div class="">
+		<form id="form" role="form">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}		
+		
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
+			<div class="form-group  field-products-ordered">
+				<label for="productsOrdered">
+					Your Order
+				</label>
+				<div class="input-div">
+					<input type="text" name="productsOrdered" value="" class="form-control" autofocus="autofocus" data-type="array">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-runner">
+				<label for="runner">
+					Runner
+				</label>
+				<div class="input-div">
+					<select class="form-control" name="runner" data-type="string">
+						{{#each runner_status_list}}
+						<option value="{{_id}}">
+							{{_id}}
+						</option>
+						{{/each}}
+					</select>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-buyer">
+				<label for="buyer">
+				</label>
+				<div class="input-div">
+					<input type="text" name="buyer" value="" class="form-control" data-type="string">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="submit-div">
+				</div>
+			</div>
+		</form>
 	</div>
 </template>
 

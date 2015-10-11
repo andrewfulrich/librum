@@ -1,4 +1,4 @@
-<template name="RunnerSelection">
+<template name="OrderConfirmation">
 	<div class="page-container container" id="content">
 		<div class="row" id="title_row">
 			<div class="col-md-12">
@@ -6,15 +6,12 @@
 				</div>
 			</div>
 		</div>
-		{{> RunnerSelectionRunnerListView}}
+		{{> OrderConfirmationOrderConfirmationListView}}
 	</div>
 </template>
 
-<template name="RunnerSelectionRunnerListView">
+<template name="OrderConfirmationOrderConfirmationListView">
 	<div id="data_view" class="">
-		<h2 id="component-title">
-			Available Runners
-		</h2>
 		<form id="dataview-controls" class="form-inline">
 			<div id="dataview-controls-search">
 				{{#if isNotEmpty}}
@@ -38,7 +35,7 @@
 		</div>
 		{{else}}
 		<div id="dataview-data">
-			{{#if viewAsTable}} {{> RunnerSelectionRunnerListViewTable}} {{/if}}
+			{{#if viewAsTable}} {{> OrderConfirmationOrderConfirmationListViewTable}} {{/if}}
 		</div>
 		{{/if}}	
 		{{else}}
@@ -49,31 +46,37 @@
 	</div>
 </template>
 
-<template name="RunnerSelectionRunnerListViewTable">
+<template name="OrderConfirmationOrderConfirmationListViewTable">
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="user_id">
-					user_id
+				<th class="th-sortable" data-sort="productsOrdered">
+					Your Order
 				</th>
-				<th class="th-sortable" data-sort="status">
-					Status
+				<th class="th-sortable" data-sort="runner">
+					Runner
+				</th>
+				<th class="th-sortable" data-sort="buyer">
+					buyer
 				</th>
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> RunnerSelectionRunnerListViewTableItems}} {{/each}}
+			{{#each tableItems}} {{> OrderConfirmationOrderConfirmationListViewTableItems}} {{/each}}
 		</tbody>
 	</table>
 </template>
 
-<template name="RunnerSelectionRunnerListViewTableItems">
+<template name="OrderConfirmationOrderConfirmationListViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{user_id}}
+			{{productsOrdered}}
 		</td>
 		<td>
-			{{status}}
+			{{runner}}
+		</td>
+		<td>
+			{{buyer}}
 		</td>
 	</tr>
 </template>

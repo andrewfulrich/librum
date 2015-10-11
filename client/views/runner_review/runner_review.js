@@ -1,25 +1,25 @@
 var pageSession = new ReactiveDict();
 
-Template.RunnerSelection.rendered = function() {
+Template.RunnerReview.rendered = function() {
 	
 };
 
-Template.RunnerSelection.events({
+Template.RunnerReview.events({
 	
 });
 
-Template.RunnerSelection.helpers({
+Template.RunnerReview.helpers({
 	
 });
 
-var RunnerSelectionRunnerListViewItems = function(cursor) {
+var RunnerReviewRunnerReviewListItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("RunnerSelectionRunnerListViewSearchString");
-	var sortBy = pageSession.get("RunnerSelectionRunnerListViewSortBy");
-	var sortAscending = pageSession.get("RunnerSelectionRunnerListViewSortAscending");
+	var searchString = pageSession.get("RunnerReviewRunnerReviewListSearchString");
+	var sortBy = pageSession.get("RunnerReviewRunnerReviewListSortBy");
+	var sortAscending = pageSession.get("RunnerReviewRunnerReviewListSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -59,8 +59,8 @@ var RunnerSelectionRunnerListViewItems = function(cursor) {
 	return filtered;
 };
 
-var RunnerSelectionRunnerListViewExport = function(cursor, fileType) {
-	var data = RunnerSelectionRunnerListViewItems(cursor);
+var RunnerReviewRunnerReviewListExport = function(cursor, fileType) {
+	var data = RunnerReviewRunnerReviewListItems(cursor);
 	var exportFields = [];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
@@ -71,12 +71,12 @@ var RunnerSelectionRunnerListViewExport = function(cursor, fileType) {
 }
 
 
-Template.RunnerSelectionRunnerListView.rendered = function() {
-	pageSession.set("RunnerSelectionRunnerListViewStyle", "table");
+Template.RunnerReviewRunnerReviewList.rendered = function() {
+	pageSession.set("RunnerReviewRunnerReviewListStyle", "table");
 	
 };
 
-Template.RunnerSelectionRunnerListView.events({
+Template.RunnerReviewRunnerReviewList.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -89,7 +89,7 @@ Template.RunnerSelectionRunnerListView.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("RunnerSelectionRunnerListViewSearchString", searchString);
+				pageSession.set("RunnerReviewRunnerReviewListSearchString", searchString);
 			}
 
 		}
@@ -105,7 +105,7 @@ Template.RunnerSelectionRunnerListView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("RunnerSelectionRunnerListViewSearchString", searchString);
+					pageSession.set("RunnerReviewRunnerReviewListSearchString", searchString);
 				}
 
 			}
@@ -120,7 +120,7 @@ Template.RunnerSelectionRunnerListView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("RunnerSelectionRunnerListViewSearchString", "");
+					pageSession.set("RunnerReviewRunnerReviewListSearchString", "");
 				}
 
 			}
@@ -137,28 +137,28 @@ Template.RunnerSelectionRunnerListView.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "csv");
+		RunnerReviewRunnerReviewListExport(this.runner_status_list, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "csv");
+		RunnerReviewRunnerReviewListExport(this.runner_status_list, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "tsv");
+		RunnerReviewRunnerReviewListExport(this.runner_status_list, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "json");
+		RunnerReviewRunnerReviewListExport(this.runner_status_list, "json");
 	}
 
 	
 });
 
-Template.RunnerSelectionRunnerListView.helpers({
+Template.RunnerReviewRunnerReviewList.helpers({
 
 	"insertButtonClass": function() {
 		return RunnerStatus.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
@@ -171,57 +171,57 @@ Template.RunnerSelectionRunnerListView.helpers({
 		return this.runner_status_list && this.runner_status_list.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.runner_status_list && pageSession.get("RunnerSelectionRunnerListViewSearchString") && RunnerSelectionRunnerListViewItems(this.runner_status_list).length == 0;
+		return this.runner_status_list && pageSession.get("RunnerReviewRunnerReviewListSearchString") && RunnerReviewRunnerReviewListItems(this.runner_status_list).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewSearchString");
+		return pageSession.get("RunnerReviewRunnerReviewListSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "table";
+		return pageSession.get("RunnerReviewRunnerReviewListStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "list";
+		return pageSession.get("RunnerReviewRunnerReviewListStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "gallery";
+		return pageSession.get("RunnerReviewRunnerReviewListStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.RunnerSelectionRunnerListViewTable.rendered = function() {
+Template.RunnerReviewRunnerReviewListTable.rendered = function() {
 	
 };
 
-Template.RunnerSelectionRunnerListViewTable.events({
+Template.RunnerReviewRunnerReviewListTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("RunnerSelectionRunnerListViewSortBy");
+		var oldSortBy = pageSession.get("RunnerReviewRunnerReviewListSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("RunnerSelectionRunnerListViewSortBy", newSortBy);
+		pageSession.set("RunnerReviewRunnerReviewListSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("RunnerSelectionRunnerListViewSortAscending") || false;
-			pageSession.set("RunnerSelectionRunnerListViewSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("RunnerReviewRunnerReviewListSortAscending") || false;
+			pageSession.set("RunnerReviewRunnerReviewListSortAscending", !sortAscending);
 		} else {
-			pageSession.set("RunnerSelectionRunnerListViewSortAscending", true);
+			pageSession.set("RunnerReviewRunnerReviewListSortAscending", true);
 		}
 	}
 });
 
-Template.RunnerSelectionRunnerListViewTable.helpers({
+Template.RunnerReviewRunnerReviewListTable.helpers({
 	"tableItems": function() {
-		return RunnerSelectionRunnerListViewItems(this.runner_status_list);
+		return RunnerReviewRunnerReviewListItems(this.runner_status_list);
 	}
 });
 
 
-Template.RunnerSelectionRunnerListViewTableItems.rendered = function() {
+Template.RunnerReviewRunnerReviewListTableItems.rendered = function() {
 	
 };
 
-Template.RunnerSelectionRunnerListViewTableItems.events({
+Template.RunnerReviewRunnerReviewListTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
 		/**/
@@ -274,7 +274,7 @@ Template.RunnerSelectionRunnerListViewTableItems.events({
 	}
 });
 
-Template.RunnerSelectionRunnerListViewTableItems.helpers({
+Template.RunnerReviewRunnerReviewListTableItems.helpers({
 	"checked": function(value) { return value ? "checked" : "" }, 
 	"editButtonClass": function() {
 		return RunnerStatus.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";

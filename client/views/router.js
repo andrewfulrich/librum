@@ -34,7 +34,11 @@ var privateRoutes = [
 	"runner_status_admin",
 	"runner_state_admin",
 	"runner_selection",
-	"orders_admin"
+	"orders_admin",
+	"shopping_cart",
+	"check_out",
+	"order_confirmation",
+	"runner_review"
 ];
 
 var freeRoutes = [
@@ -213,4 +217,8 @@ Router.map(function () {
 	this.route("runner_state_admin", {path: "/runner_state_admin", controller: "RunnerStateAdminController"});
 	this.route("runner_selection", {path: "/runner_selection", controller: "RunnerSelectionController"});
 	this.route("orders_admin", {path: "/orders_admin", controller: "OrdersAdminController"});
+	this.route("shopping_cart", {path: "/shopping_cart", controller: "ShoppingCartController"});
+	this.route("check_out", {path: "/check_out", controller: "CheckOutController"});
+	this.route("order_confirmation", {path: "/order_confirmation", controller: "OrderConfirmationController"});
+	this.route("runner_review", {path: "/runner_review", controller: "RunnerReviewController"});
 });

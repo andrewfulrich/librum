@@ -1,25 +1,25 @@
 var pageSession = new ReactiveDict();
 
-Template.RunnerSelection.rendered = function() {
+Template.CheckOut.rendered = function() {
 	
 };
 
-Template.RunnerSelection.events({
+Template.CheckOut.events({
 	
 });
 
-Template.RunnerSelection.helpers({
+Template.CheckOut.helpers({
 	
 });
 
-var RunnerSelectionRunnerListViewItems = function(cursor) {
+var CheckOutOrdersListViewItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("RunnerSelectionRunnerListViewSearchString");
-	var sortBy = pageSession.get("RunnerSelectionRunnerListViewSortBy");
-	var sortAscending = pageSession.get("RunnerSelectionRunnerListViewSortAscending");
+	var searchString = pageSession.get("CheckOutOrdersListViewSearchString");
+	var sortBy = pageSession.get("CheckOutOrdersListViewSortBy");
+	var sortAscending = pageSession.get("CheckOutOrdersListViewSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -31,7 +31,7 @@ var RunnerSelectionRunnerListViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["user_id", "status"];
+		var searchFields = ["productsOrdered", "runner", "buyer"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -59,8 +59,8 @@ var RunnerSelectionRunnerListViewItems = function(cursor) {
 	return filtered;
 };
 
-var RunnerSelectionRunnerListViewExport = function(cursor, fileType) {
-	var data = RunnerSelectionRunnerListViewItems(cursor);
+var CheckOutOrdersListViewExport = function(cursor, fileType) {
+	var data = CheckOutOrdersListViewItems(cursor);
 	var exportFields = [];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
@@ -71,12 +71,12 @@ var RunnerSelectionRunnerListViewExport = function(cursor, fileType) {
 }
 
 
-Template.RunnerSelectionRunnerListView.rendered = function() {
-	pageSession.set("RunnerSelectionRunnerListViewStyle", "table");
+Template.CheckOutOrdersListView.rendered = function() {
+	pageSession.set("CheckOutOrdersListViewStyle", "table");
 	
 };
 
-Template.RunnerSelectionRunnerListView.events({
+Template.CheckOutOrdersListView.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -89,7 +89,7 @@ Template.RunnerSelectionRunnerListView.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("RunnerSelectionRunnerListViewSearchString", searchString);
+				pageSession.set("CheckOutOrdersListViewSearchString", searchString);
 			}
 
 		}
@@ -105,7 +105,7 @@ Template.RunnerSelectionRunnerListView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("RunnerSelectionRunnerListViewSearchString", searchString);
+					pageSession.set("CheckOutOrdersListViewSearchString", searchString);
 				}
 
 			}
@@ -120,7 +120,7 @@ Template.RunnerSelectionRunnerListView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("RunnerSelectionRunnerListViewSearchString", "");
+					pageSession.set("CheckOutOrdersListViewSearchString", "");
 				}
 
 			}
@@ -137,91 +137,91 @@ Template.RunnerSelectionRunnerListView.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "csv");
+		CheckOutOrdersListViewExport(this.orders_list, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "csv");
+		CheckOutOrdersListViewExport(this.orders_list, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "tsv");
+		CheckOutOrdersListViewExport(this.orders_list, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "json");
+		CheckOutOrdersListViewExport(this.orders_list, "json");
 	}
 
 	
 });
 
-Template.RunnerSelectionRunnerListView.helpers({
+Template.CheckOutOrdersListView.helpers({
 
 	"insertButtonClass": function() {
-		return RunnerStatus.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+		return Orders.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
 	},
 
 	"isEmpty": function() {
-		return !this.runner_status_list || this.runner_status_list.count() == 0;
+		return !this.orders_list || this.orders_list.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.runner_status_list && this.runner_status_list.count() > 0;
+		return this.orders_list && this.orders_list.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.runner_status_list && pageSession.get("RunnerSelectionRunnerListViewSearchString") && RunnerSelectionRunnerListViewItems(this.runner_status_list).length == 0;
+		return this.orders_list && pageSession.get("CheckOutOrdersListViewSearchString") && CheckOutOrdersListViewItems(this.orders_list).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewSearchString");
+		return pageSession.get("CheckOutOrdersListViewSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "table";
+		return pageSession.get("CheckOutOrdersListViewStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "list";
+		return pageSession.get("CheckOutOrdersListViewStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "gallery";
+		return pageSession.get("CheckOutOrdersListViewStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.RunnerSelectionRunnerListViewTable.rendered = function() {
+Template.CheckOutOrdersListViewTable.rendered = function() {
 	
 };
 
-Template.RunnerSelectionRunnerListViewTable.events({
+Template.CheckOutOrdersListViewTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("RunnerSelectionRunnerListViewSortBy");
+		var oldSortBy = pageSession.get("CheckOutOrdersListViewSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("RunnerSelectionRunnerListViewSortBy", newSortBy);
+		pageSession.set("CheckOutOrdersListViewSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("RunnerSelectionRunnerListViewSortAscending") || false;
-			pageSession.set("RunnerSelectionRunnerListViewSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("CheckOutOrdersListViewSortAscending") || false;
+			pageSession.set("CheckOutOrdersListViewSortAscending", !sortAscending);
 		} else {
-			pageSession.set("RunnerSelectionRunnerListViewSortAscending", true);
+			pageSession.set("CheckOutOrdersListViewSortAscending", true);
 		}
 	}
 });
 
-Template.RunnerSelectionRunnerListViewTable.helpers({
+Template.CheckOutOrdersListViewTable.helpers({
 	"tableItems": function() {
-		return RunnerSelectionRunnerListViewItems(this.runner_status_list);
+		return CheckOutOrdersListViewItems(this.orders_list);
 	}
 });
 
 
-Template.RunnerSelectionRunnerListViewTableItems.rendered = function() {
+Template.CheckOutOrdersListViewTableItems.rendered = function() {
 	
 };
 
-Template.RunnerSelectionRunnerListViewTableItems.events({
+Template.CheckOutOrdersListViewTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
 		/**/
@@ -239,7 +239,7 @@ Template.RunnerSelectionRunnerListViewTableItems.events({
 		var values = {};
 		values[fieldName] = !this[fieldName];
 
-		RunnerStatus.update({ _id: this._id }, { $set: values });
+		Orders.update({ _id: this._id }, { $set: values });
 
 		return false;
 	},
@@ -256,7 +256,7 @@ Template.RunnerSelectionRunnerListViewTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						RunnerStatus.remove({ _id: me._id });
+						Orders.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -274,13 +274,13 @@ Template.RunnerSelectionRunnerListViewTableItems.events({
 	}
 });
 
-Template.RunnerSelectionRunnerListViewTableItems.helpers({
+Template.CheckOutOrdersListViewTableItems.helpers({
 	"checked": function(value) { return value ? "checked" : "" }, 
 	"editButtonClass": function() {
-		return RunnerStatus.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
+		return Orders.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
 	},
 
 	"deleteButtonClass": function() {
-		return RunnerStatus.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
+		return Orders.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
 	}
 });

@@ -1,25 +1,25 @@
 var pageSession = new ReactiveDict();
 
-Template.RunnerSelection.rendered = function() {
+Template.ShoppingCart.rendered = function() {
 	
 };
 
-Template.RunnerSelection.events({
+Template.ShoppingCart.events({
 	
 });
 
-Template.RunnerSelection.helpers({
+Template.ShoppingCart.helpers({
 	
 });
 
-var RunnerSelectionRunnerListViewItems = function(cursor) {
+var ShoppingCartOrdersListViewItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("RunnerSelectionRunnerListViewSearchString");
-	var sortBy = pageSession.get("RunnerSelectionRunnerListViewSortBy");
-	var sortAscending = pageSession.get("RunnerSelectionRunnerListViewSortAscending");
+	var searchString = pageSession.get("ShoppingCartOrdersListViewSearchString");
+	var sortBy = pageSession.get("ShoppingCartOrdersListViewSortBy");
+	var sortAscending = pageSession.get("ShoppingCartOrdersListViewSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -31,7 +31,7 @@ var RunnerSelectionRunnerListViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["user_id", "status"];
+		var searchFields = ["productsOrdered", "runner", "buyer"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -59,8 +59,8 @@ var RunnerSelectionRunnerListViewItems = function(cursor) {
 	return filtered;
 };
 
-var RunnerSelectionRunnerListViewExport = function(cursor, fileType) {
-	var data = RunnerSelectionRunnerListViewItems(cursor);
+var ShoppingCartOrdersListViewExport = function(cursor, fileType) {
+	var data = ShoppingCartOrdersListViewItems(cursor);
 	var exportFields = [];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
@@ -71,12 +71,12 @@ var RunnerSelectionRunnerListViewExport = function(cursor, fileType) {
 }
 
 
-Template.RunnerSelectionRunnerListView.rendered = function() {
-	pageSession.set("RunnerSelectionRunnerListViewStyle", "table");
+Template.ShoppingCartOrdersListView.rendered = function() {
+	pageSession.set("ShoppingCartOrdersListViewStyle", "table");
 	
 };
 
-Template.RunnerSelectionRunnerListView.events({
+Template.ShoppingCartOrdersListView.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -89,7 +89,7 @@ Template.RunnerSelectionRunnerListView.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("RunnerSelectionRunnerListViewSearchString", searchString);
+				pageSession.set("ShoppingCartOrdersListViewSearchString", searchString);
 			}
 
 		}
@@ -105,7 +105,7 @@ Template.RunnerSelectionRunnerListView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("RunnerSelectionRunnerListViewSearchString", searchString);
+					pageSession.set("ShoppingCartOrdersListViewSearchString", searchString);
 				}
 
 			}
@@ -120,7 +120,7 @@ Template.RunnerSelectionRunnerListView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("RunnerSelectionRunnerListViewSearchString", "");
+					pageSession.set("ShoppingCartOrdersListViewSearchString", "");
 				}
 
 			}
@@ -137,91 +137,91 @@ Template.RunnerSelectionRunnerListView.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "csv");
+		ShoppingCartOrdersListViewExport(this.orders_list, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "csv");
+		ShoppingCartOrdersListViewExport(this.orders_list, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "tsv");
+		ShoppingCartOrdersListViewExport(this.orders_list, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		RunnerSelectionRunnerListViewExport(this.runner_status_list, "json");
+		ShoppingCartOrdersListViewExport(this.orders_list, "json");
 	}
 
 	
 });
 
-Template.RunnerSelectionRunnerListView.helpers({
+Template.ShoppingCartOrdersListView.helpers({
 
 	"insertButtonClass": function() {
-		return RunnerStatus.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+		return Orders.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
 	},
 
 	"isEmpty": function() {
-		return !this.runner_status_list || this.runner_status_list.count() == 0;
+		return !this.orders_list || this.orders_list.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.runner_status_list && this.runner_status_list.count() > 0;
+		return this.orders_list && this.orders_list.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.runner_status_list && pageSession.get("RunnerSelectionRunnerListViewSearchString") && RunnerSelectionRunnerListViewItems(this.runner_status_list).length == 0;
+		return this.orders_list && pageSession.get("ShoppingCartOrdersListViewSearchString") && ShoppingCartOrdersListViewItems(this.orders_list).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewSearchString");
+		return pageSession.get("ShoppingCartOrdersListViewSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "table";
+		return pageSession.get("ShoppingCartOrdersListViewStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "list";
+		return pageSession.get("ShoppingCartOrdersListViewStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("RunnerSelectionRunnerListViewStyle") == "gallery";
+		return pageSession.get("ShoppingCartOrdersListViewStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.RunnerSelectionRunnerListViewTable.rendered = function() {
+Template.ShoppingCartOrdersListViewTable.rendered = function() {
 	
 };
 
-Template.RunnerSelectionRunnerListViewTable.events({
+Template.ShoppingCartOrdersListViewTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("RunnerSelectionRunnerListViewSortBy");
+		var oldSortBy = pageSession.get("ShoppingCartOrdersListViewSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("RunnerSelectionRunnerListViewSortBy", newSortBy);
+		pageSession.set("ShoppingCartOrdersListViewSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("RunnerSelectionRunnerListViewSortAscending") || false;
-			pageSession.set("RunnerSelectionRunnerListViewSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("ShoppingCartOrdersListViewSortAscending") || false;
+			pageSession.set("ShoppingCartOrdersListViewSortAscending", !sortAscending);
 		} else {
-			pageSession.set("RunnerSelectionRunnerListViewSortAscending", true);
+			pageSession.set("ShoppingCartOrdersListViewSortAscending", true);
 		}
 	}
 });
 
-Template.RunnerSelectionRunnerListViewTable.helpers({
+Template.ShoppingCartOrdersListViewTable.helpers({
 	"tableItems": function() {
-		return RunnerSelectionRunnerListViewItems(this.runner_status_list);
+		return ShoppingCartOrdersListViewItems(this.orders_list);
 	}
 });
 
 
-Template.RunnerSelectionRunnerListViewTableItems.rendered = function() {
+Template.ShoppingCartOrdersListViewTableItems.rendered = function() {
 	
 };
 
-Template.RunnerSelectionRunnerListViewTableItems.events({
+Template.ShoppingCartOrdersListViewTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
 		/**/
@@ -239,7 +239,7 @@ Template.RunnerSelectionRunnerListViewTableItems.events({
 		var values = {};
 		values[fieldName] = !this[fieldName];
 
-		RunnerStatus.update({ _id: this._id }, { $set: values });
+		Orders.update({ _id: this._id }, { $set: values });
 
 		return false;
 	},
@@ -256,7 +256,7 @@ Template.RunnerSelectionRunnerListViewTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						RunnerStatus.remove({ _id: me._id });
+						Orders.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -274,13 +274,13 @@ Template.RunnerSelectionRunnerListViewTableItems.events({
 	}
 });
 
-Template.RunnerSelectionRunnerListViewTableItems.helpers({
+Template.ShoppingCartOrdersListViewTableItems.helpers({
 	"checked": function(value) { return value ? "checked" : "" }, 
 	"editButtonClass": function() {
-		return RunnerStatus.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
+		return Orders.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
 	},
 
 	"deleteButtonClass": function() {
-		return RunnerStatus.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
+		return Orders.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
 	}
 });

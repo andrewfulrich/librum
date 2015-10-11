@@ -1,5 +1,5 @@
-this.OrdersAdminController = RouteController.extend({
-	template: "OrdersAdmin",
+this.RunnerReviewController = RouteController.extend({
+	template: "RunnerReview",
 	
 
 	yieldTemplates: {
@@ -19,9 +19,7 @@ this.OrdersAdminController = RouteController.extend({
 		
 
 		var subs = [
-			Meteor.subscribe("orders_list"),
-			Meteor.subscribe("runner_status_list"),
-			Meteor.subscribe("add_orders_query")
+			Meteor.subscribe("runner_status_list")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -36,9 +34,7 @@ this.OrdersAdminController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			orders_list: Orders.find({}, {}),
-			runner_status_list: RunnerStatus.find({}, {}),
-			add_orders_query: Orders.findOne({_id:null}, {})
+			runner_status_list: RunnerStatus.find({}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

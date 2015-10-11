@@ -1,20 +1,20 @@
-<template name="RunnerSelection">
+<template name="RunnerReview">
 	<div class="page-container container" id="content">
 		<div class="row" id="title_row">
 			<div class="col-md-12">
+				<h2 id="page_title" class="pull-left">
+					Runner Review
+				</h2>
 				<div id="page_menu" class="pull-right">
 				</div>
 			</div>
 		</div>
-		{{> RunnerSelectionRunnerListView}}
+		{{> RunnerReviewRunnerReviewList}}
 	</div>
 </template>
 
-<template name="RunnerSelectionRunnerListView">
+<template name="RunnerReviewRunnerReviewList">
 	<div id="data_view" class="">
-		<h2 id="component-title">
-			Available Runners
-		</h2>
 		<form id="dataview-controls" class="form-inline">
 			<div id="dataview-controls-search">
 				{{#if isNotEmpty}}
@@ -38,7 +38,7 @@
 		</div>
 		{{else}}
 		<div id="dataview-data">
-			{{#if viewAsTable}} {{> RunnerSelectionRunnerListViewTable}} {{/if}}
+			{{#if viewAsTable}} {{> RunnerReviewRunnerReviewListTable}} {{/if}}
 		</div>
 		{{/if}}	
 		{{else}}
@@ -49,7 +49,7 @@
 	</div>
 </template>
 
-<template name="RunnerSelectionRunnerListViewTable">
+<template name="RunnerReviewRunnerReviewListTable">
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
@@ -62,12 +62,12 @@
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> RunnerSelectionRunnerListViewTableItems}} {{/each}}
+			{{#each tableItems}} {{> RunnerReviewRunnerReviewListTableItems}} {{/each}}
 		</tbody>
 	</table>
 </template>
 
-<template name="RunnerSelectionRunnerListViewTableItems">
+<template name="RunnerReviewRunnerReviewListTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
 			{{user_id}}
