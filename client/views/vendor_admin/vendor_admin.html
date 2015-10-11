@@ -59,8 +59,8 @@
 				<th class="th-sortable" data-sort="vendorImage">
 					Image
 				</th>
-				<th class="th-sortable" data-sort="venue_id">
-					Venue
+				<th class="th-sortable" data-sort="venue_name">
+					venue_name
 				</th>
 			</tr>
 		</thead>
@@ -79,7 +79,7 @@
 			{{vendorImage}}
 		</td>
 		<td>
-			{{venue_id}}
+			{{venue_name}}
 		</td>
 	</tr>
 </template>
@@ -137,6 +137,17 @@
 						</option>
 						{{/each}}
 					</select>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-venue_name">
+				<label for="venue_name">
+				</label>
+				<div class="input-div">
+					<input type="text" name="venue_name" value="" class="form-control" data-type="string">
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">

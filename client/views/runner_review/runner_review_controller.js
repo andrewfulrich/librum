@@ -1,5 +1,5 @@
-this.HomePrivateController = RouteController.extend({
-	template: "HomePrivate",
+this.RunnerReviewController = RouteController.extend({
+	template: "RunnerReview",
 	
 
 	yieldTemplates: {
@@ -19,7 +19,7 @@ this.HomePrivateController = RouteController.extend({
 		
 
 		var subs = [
-			Meteor.subscribe("events_list")
+			Meteor.subscribe("runner_status_list")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -34,7 +34,7 @@ this.HomePrivateController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			events_list: Events.find({}, {})
+			runner_status_list: RunnerStatus.find({}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

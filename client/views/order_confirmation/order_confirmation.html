@@ -1,19 +1,16 @@
-<template name="VenueMenu">
+<template name="OrderConfirmation">
 	<div class="page-container container" id="content">
 		<div class="row" id="title_row">
 			<div class="col-md-12">
-				<h2 id="page_title" class="pull-left">
-					Menu
-				</h2>
 				<div id="page_menu" class="pull-right">
 				</div>
 			</div>
 		</div>
-		{{> VenueMenuMenuItems}}
+		{{> OrderConfirmationOrderConfirmationListView}}
 	</div>
 </template>
 
-<template name="VenueMenuMenuItems">
+<template name="OrderConfirmationOrderConfirmationListView">
 	<div id="data_view" class="">
 		<form id="dataview-controls" class="form-inline">
 			<div id="dataview-controls-search">
@@ -38,7 +35,7 @@
 		</div>
 		{{else}}
 		<div id="dataview-data">
-			{{#if viewAsTable}} {{> VenueMenuMenuItemsTable}} {{/if}}
+			{{#if viewAsTable}} {{> OrderConfirmationOrderConfirmationListViewTable}} {{/if}}
 		</div>
 		{{/if}}	
 		{{else}}
@@ -49,37 +46,37 @@
 	</div>
 </template>
 
-<template name="VenueMenuMenuItemsTable">
+<template name="OrderConfirmationOrderConfirmationListViewTable">
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="productName">
-					Product Name
+				<th class="th-sortable" data-sort="productsOrdered">
+					Your Order
 				</th>
-				<th class="th-sortable" data-sort="productImage">
-					Image
+				<th class="th-sortable" data-sort="runner_name">
+					runner_name
 				</th>
-				<th class="th-sortable" data-sort="vendor_name">
-					vendor_name
+				<th class="th-sortable" data-sort="buyer_name">
+					buyer_name
 				</th>
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> VenueMenuMenuItemsTableItems}} {{/each}}
+			{{#each tableItems}} {{> OrderConfirmationOrderConfirmationListViewTableItems}} {{/each}}
 		</tbody>
 	</table>
 </template>
 
-<template name="VenueMenuMenuItemsTableItems">
+<template name="OrderConfirmationOrderConfirmationListViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{productName}}
+			{{productsOrdered}}
 		</td>
 		<td>
-			{{productImage}}
+			{{runner_name}}
 		</td>
 		<td>
-			{{vendor_name}}
+			{{buyer_name}}
 		</td>
 	</tr>
 </template>

@@ -9,6 +9,81 @@
 				</div>
 			</div>
 		</div>
+		{{> HomePrivateOtherEventListView}}
 	</div>
+</template>
+
+<template name="HomePrivateOtherEventListView">
+	<div id="data_view" class="">
+		<h2 id="component-title">
+			Events
+		</h2>
+		<form id="dataview-controls" class="form-inline">
+			<div id="dataview-controls-search">
+				{{#if isNotEmpty}}
+				<div id="dataview-controls-search-group" class="form-group">
+					<label class="sr-only" for="search">
+						Search
+					</label>
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<button type="button" id="dataview-search-button" class="btn btn-primary">
+						<span class="fa fa-search">
+						</span>
+					</button>
+				</div>
+				{{/if}}
+			</div>
+		</form>
+		{{#if isNotEmpty}}	
+			{{#if isNotFound}}
+		<div class="alert alert-warning">
+			"{{searchString}}" not found.
+		</div>
+		{{else}}
+		<div id="dataview-data">
+			{{#if viewAsTable}} {{> HomePrivateOtherEventListViewTable}} {{/if}}
+		</div>
+		{{/if}}	
+		{{else}}
+		<div class="alert alert-info">
+			Empty.
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="HomePrivateOtherEventListViewTable">
+	<table id="dataview-table" class="table table-striped">
+		<thead id="dataview-table-header">
+			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="eventName">
+					Event Name
+				</th>
+				<th class="th-sortable" data-sort="eventImage">
+					Image
+				</th>
+				<th class="th-sortable" data-sort="venueName">
+					venueName
+				</th>
+			</tr>
+		</thead>
+		<tbody id="dataview-table-items">
+			{{#each tableItems}} {{> HomePrivateOtherEventListViewTableItems}} {{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="HomePrivateOtherEventListViewTableItems">
+	<tr id="dataview-table-items-row">
+		<td>
+			{{eventName}}
+		</td>
+		<td>
+			{{eventImage}}
+		</td>
+		<td>
+			{{venueName}}
+		</td>
+	</tr>
 </template>
 

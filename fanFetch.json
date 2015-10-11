@@ -93,7 +93,12 @@
 						"lookup_query_name": "venuesList",
 						"lookup_key": "_id",
 						"lookup_field": "venueName",
-						"join_collection": "venues"
+						"join_collection": "venues",
+						"show_in_dataview": false
+					},
+					{
+						"name": "venue_name",
+						"type": "string"
 					}
 				]
 			},
@@ -123,16 +128,22 @@
 						"input": "select",
 						"lookup_query_name": "vendorList",
 						"lookup_key": "_id",
-						"lookup_field": "vendorName"
+						"lookup_field": "vendorName",
+						"show_in_dataview": false
 					},
 					{
 						"name": "productPrice",
 						"title": "Price",
-						"type": "float"
+						"type": "float",
+						"show_in_dataview": false
 					},
 					{
 						"name": "productImage",
 						"title": "Image",
+						"type": "string"
+					},
+					{
+						"name": "vendor_name",
 						"type": "string"
 					}
 				]
@@ -167,10 +178,20 @@
 						"input": "select",
 						"lookup_query_name": "runnerStatusList",
 						"lookup_key": "_id",
-						"lookup_field": "_id"
+						"lookup_field": "_id",
+						"show_in_dataview": false
 					},
 					{
 						"name": "buyer",
+						"type": "string",
+						"show_in_dataview": false
+					},
+					{
+						"name": "runner_name",
+						"type": "string"
+					},
+					{
+						"name": "buyer_name",
 						"type": "string"
 					}
 				]
@@ -215,7 +236,12 @@
 						"lookup_query_name": "venuesList",
 						"lookup_key": "_id",
 						"lookup_field": "venueName",
-						"join_collection": "venues"
+						"join_collection": "venues",
+						"show_in_dataview": false
+					},
+					{
+						"name": "venue_name",
+						"type": "string"
 					}
 				]
 			},
@@ -226,7 +252,8 @@
 					{
 						"name": "user_id",
 						"type": "string",
-						"join_collection": "users"
+						"join_collection": "users",
+						"show_in_dataview": false
 					},
 					{
 						"name": "status",
@@ -237,6 +264,10 @@
 						"lookup_key": "_id",
 						"lookup_field": "name",
 						"join_collection": "runnerStates"
+					},
+					{
+						"name": "user_name",
+						"type": "string"
 					}
 				]
 			},
@@ -454,7 +485,21 @@
 				{
 					"name": "home_private",
 					"title": "Welcome {{userFullName}}!",
-					"type": "page"
+					"type": "page",
+					"components": [
+						{
+							"name": "other_event_list_view",
+							"title": "Events",
+							"query_name": "eventsList",
+							"type": "data_view",
+							"details_route_params": [
+								{
+									"name": "event_id",
+									"value": "this._id"
+								}
+							]
+						}
+					]
 				},
 				{
 					"name": "user_settings",
@@ -773,12 +818,79 @@
 				{
 					"name": "runner_selection",
 					"query_name": "runnerStatusList",
-					"type": "page"
+					"type": "page",
+					"components": [
+						{
+							"name": "runner_list_view",
+							"title": "Available Runners",
+							"query_name": "runnerStatusList",
+							"type": "data_view"
+						}
+					]
 				},
 				{
 					"name": "orders_admin",
 					"title": "Orders Admin",
-					"type": "page"
+					"type": "page",
+					"components": [
+						{
+							"name": "orders_list_viewb",
+							"title": "Orders",
+							"query_name": "ordersList",
+							"type": "data_view"
+						},
+						{
+							"name": "add_orders_form",
+							"query_name": "addOrdersQuery",
+							"mode": "insert",
+							"type": "form"
+						}
+					]
+				},
+				{
+					"name": "shopping_cart",
+					"type": "page",
+					"components": [
+						{
+							"name": "orders_list_view",
+							"query_name": "ordersList",
+							"type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "check_out",
+					"type": "page",
+					"components": [
+						{
+							"name": "orders_list_view",
+							"query_name": "ordersList",
+							"type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "order_confirmation",
+					"type": "page",
+					"components": [
+						{
+							"name": "order_confirmation_list_view",
+							"query_name": "ordersList",
+							"type": "data_view"
+						}
+					]
+				},
+				{
+					"name": "runner_review",
+					"title": "Runner Review",
+					"type": "page",
+					"components": [
+						{
+							"name": "runner_review_list",
+							"query_name": "runnerStatusList",
+							"type": "data_view"
+						}
+					]
 				}
 			],
 			"components": [
@@ -811,6 +923,18 @@
 						{
 							"title": "Product Admin",
 							"route": "product_admin"
+						},
+						{
+							"title": "Runner Admin",
+							"route": "runner_status_admin"
+						},
+						{
+							"title": "Runner State Admin",
+							"route": "runner_state_admin"
+						},
+						{
+							"title": "Orders Admin",
+							"route": "orders_admin"
 						}
 					]
 				},

@@ -19,6 +19,9 @@ this.OrdersAdminController = RouteController.extend({
 		
 
 		var subs = [
+			Meteor.subscribe("orders_list"),
+			Meteor.subscribe("runner_status_list"),
+			Meteor.subscribe("add_orders_query")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -32,7 +35,10 @@ this.OrdersAdminController = RouteController.extend({
 		
 
 		return {
-			params: this.params || {}
+			params: this.params || {},
+			orders_list: Orders.find({}, {}),
+			runner_status_list: RunnerStatus.find({}, {}),
+			add_orders_query: Orders.findOne({_id:null}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

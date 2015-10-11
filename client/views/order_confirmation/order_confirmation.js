@@ -1,25 +1,25 @@
 var pageSession = new ReactiveDict();
 
-Template.HomePrivate.rendered = function() {
+Template.OrderConfirmation.rendered = function() {
 	
 };
 
-Template.HomePrivate.events({
+Template.OrderConfirmation.events({
 	
 });
 
-Template.HomePrivate.helpers({
+Template.OrderConfirmation.helpers({
 	
 });
 
-var HomePrivateOtherEventListViewItems = function(cursor) {
+var OrderConfirmationOrderConfirmationListViewItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("HomePrivateOtherEventListViewSearchString");
-	var sortBy = pageSession.get("HomePrivateOtherEventListViewSortBy");
-	var sortAscending = pageSession.get("HomePrivateOtherEventListViewSortAscending");
+	var searchString = pageSession.get("OrderConfirmationOrderConfirmationListViewSearchString");
+	var sortBy = pageSession.get("OrderConfirmationOrderConfirmationListViewSortBy");
+	var sortAscending = pageSession.get("OrderConfirmationOrderConfirmationListViewSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -31,7 +31,7 @@ var HomePrivateOtherEventListViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["eventName", "venue", "eventImage", "venueName"];
+		var searchFields = ["productsOrdered", "runner", "buyer", "runner_name", "buyer_name"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -59,8 +59,8 @@ var HomePrivateOtherEventListViewItems = function(cursor) {
 	return filtered;
 };
 
-var HomePrivateOtherEventListViewExport = function(cursor, fileType) {
-	var data = HomePrivateOtherEventListViewItems(cursor);
+var OrderConfirmationOrderConfirmationListViewExport = function(cursor, fileType) {
+	var data = OrderConfirmationOrderConfirmationListViewItems(cursor);
 	var exportFields = [];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
@@ -71,12 +71,12 @@ var HomePrivateOtherEventListViewExport = function(cursor, fileType) {
 }
 
 
-Template.HomePrivateOtherEventListView.rendered = function() {
-	pageSession.set("HomePrivateOtherEventListViewStyle", "table");
+Template.OrderConfirmationOrderConfirmationListView.rendered = function() {
+	pageSession.set("OrderConfirmationOrderConfirmationListViewStyle", "table");
 	
 };
 
-Template.HomePrivateOtherEventListView.events({
+Template.OrderConfirmationOrderConfirmationListView.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -89,7 +89,7 @@ Template.HomePrivateOtherEventListView.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("HomePrivateOtherEventListViewSearchString", searchString);
+				pageSession.set("OrderConfirmationOrderConfirmationListViewSearchString", searchString);
 			}
 
 		}
@@ -105,7 +105,7 @@ Template.HomePrivateOtherEventListView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("HomePrivateOtherEventListViewSearchString", searchString);
+					pageSession.set("OrderConfirmationOrderConfirmationListViewSearchString", searchString);
 				}
 
 			}
@@ -120,7 +120,7 @@ Template.HomePrivateOtherEventListView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("HomePrivateOtherEventListViewSearchString", "");
+					pageSession.set("OrderConfirmationOrderConfirmationListViewSearchString", "");
 				}
 
 			}
@@ -137,91 +137,91 @@ Template.HomePrivateOtherEventListView.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		HomePrivateOtherEventListViewExport(this.events_list, "csv");
+		OrderConfirmationOrderConfirmationListViewExport(this.orders_list, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		HomePrivateOtherEventListViewExport(this.events_list, "csv");
+		OrderConfirmationOrderConfirmationListViewExport(this.orders_list, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		HomePrivateOtherEventListViewExport(this.events_list, "tsv");
+		OrderConfirmationOrderConfirmationListViewExport(this.orders_list, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		HomePrivateOtherEventListViewExport(this.events_list, "json");
+		OrderConfirmationOrderConfirmationListViewExport(this.orders_list, "json");
 	}
 
 	
 });
 
-Template.HomePrivateOtherEventListView.helpers({
+Template.OrderConfirmationOrderConfirmationListView.helpers({
 
 	"insertButtonClass": function() {
-		return Events.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+		return Orders.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
 	},
 
 	"isEmpty": function() {
-		return !this.events_list || this.events_list.count() == 0;
+		return !this.orders_list || this.orders_list.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.events_list && this.events_list.count() > 0;
+		return this.orders_list && this.orders_list.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.events_list && pageSession.get("HomePrivateOtherEventListViewSearchString") && HomePrivateOtherEventListViewItems(this.events_list).length == 0;
+		return this.orders_list && pageSession.get("OrderConfirmationOrderConfirmationListViewSearchString") && OrderConfirmationOrderConfirmationListViewItems(this.orders_list).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("HomePrivateOtherEventListViewSearchString");
+		return pageSession.get("OrderConfirmationOrderConfirmationListViewSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("HomePrivateOtherEventListViewStyle") == "table";
+		return pageSession.get("OrderConfirmationOrderConfirmationListViewStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("HomePrivateOtherEventListViewStyle") == "list";
+		return pageSession.get("OrderConfirmationOrderConfirmationListViewStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("HomePrivateOtherEventListViewStyle") == "gallery";
+		return pageSession.get("OrderConfirmationOrderConfirmationListViewStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.HomePrivateOtherEventListViewTable.rendered = function() {
+Template.OrderConfirmationOrderConfirmationListViewTable.rendered = function() {
 	
 };
 
-Template.HomePrivateOtherEventListViewTable.events({
+Template.OrderConfirmationOrderConfirmationListViewTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("HomePrivateOtherEventListViewSortBy");
+		var oldSortBy = pageSession.get("OrderConfirmationOrderConfirmationListViewSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("HomePrivateOtherEventListViewSortBy", newSortBy);
+		pageSession.set("OrderConfirmationOrderConfirmationListViewSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("HomePrivateOtherEventListViewSortAscending") || false;
-			pageSession.set("HomePrivateOtherEventListViewSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("OrderConfirmationOrderConfirmationListViewSortAscending") || false;
+			pageSession.set("OrderConfirmationOrderConfirmationListViewSortAscending", !sortAscending);
 		} else {
-			pageSession.set("HomePrivateOtherEventListViewSortAscending", true);
+			pageSession.set("OrderConfirmationOrderConfirmationListViewSortAscending", true);
 		}
 	}
 });
 
-Template.HomePrivateOtherEventListViewTable.helpers({
+Template.OrderConfirmationOrderConfirmationListViewTable.helpers({
 	"tableItems": function() {
-		return HomePrivateOtherEventListViewItems(this.events_list);
+		return OrderConfirmationOrderConfirmationListViewItems(this.orders_list);
 	}
 });
 
 
-Template.HomePrivateOtherEventListViewTableItems.rendered = function() {
+Template.OrderConfirmationOrderConfirmationListViewTableItems.rendered = function() {
 	
 };
 
-Template.HomePrivateOtherEventListViewTableItems.events({
+Template.OrderConfirmationOrderConfirmationListViewTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
 		/**/
@@ -239,7 +239,7 @@ Template.HomePrivateOtherEventListViewTableItems.events({
 		var values = {};
 		values[fieldName] = !this[fieldName];
 
-		Events.update({ _id: this._id }, { $set: values });
+		Orders.update({ _id: this._id }, { $set: values });
 
 		return false;
 	},
@@ -256,7 +256,7 @@ Template.HomePrivateOtherEventListViewTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						Events.remove({ _id: me._id });
+						Orders.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -274,13 +274,13 @@ Template.HomePrivateOtherEventListViewTableItems.events({
 	}
 });
 
-Template.HomePrivateOtherEventListViewTableItems.helpers({
+Template.OrderConfirmationOrderConfirmationListViewTableItems.helpers({
 	"checked": function(value) { return value ? "checked" : "" }, 
 	"editButtonClass": function() {
-		return Events.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
+		return Orders.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
 	},
 
 	"deleteButtonClass": function() {
-		return Events.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
+		return Orders.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
 	}
 });

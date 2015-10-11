@@ -6,6 +6,75 @@
 				</div>
 			</div>
 		</div>
+		{{> RunnerSelectionRunnerListView}}
 	</div>
+</template>
+
+<template name="RunnerSelectionRunnerListView">
+	<div id="data_view" class="">
+		<h2 id="component-title">
+			Available Runners
+		</h2>
+		<form id="dataview-controls" class="form-inline">
+			<div id="dataview-controls-search">
+				{{#if isNotEmpty}}
+				<div id="dataview-controls-search-group" class="form-group">
+					<label class="sr-only" for="search">
+						Search
+					</label>
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<button type="button" id="dataview-search-button" class="btn btn-primary">
+						<span class="fa fa-search">
+						</span>
+					</button>
+				</div>
+				{{/if}}
+			</div>
+		</form>
+		{{#if isNotEmpty}}	
+			{{#if isNotFound}}
+		<div class="alert alert-warning">
+			"{{searchString}}" not found.
+		</div>
+		{{else}}
+		<div id="dataview-data">
+			{{#if viewAsTable}} {{> RunnerSelectionRunnerListViewTable}} {{/if}}
+		</div>
+		{{/if}}	
+		{{else}}
+		<div class="alert alert-info">
+			Empty.
+		</div>
+		{{/if}}
+	</div>
+</template>
+
+<template name="RunnerSelectionRunnerListViewTable">
+	<table id="dataview-table" class="table table-striped">
+		<thead id="dataview-table-header">
+			<tr id="dataview-table-header-row">
+				<th class="th-sortable" data-sort="status">
+					Status
+				</th>
+				<th class="th-sortable" data-sort="user_name">
+					user_name
+				</th>
+			</tr>
+		</thead>
+		<tbody id="dataview-table-items">
+			{{#each tableItems}} {{> RunnerSelectionRunnerListViewTableItems}} {{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="RunnerSelectionRunnerListViewTableItems">
+	<tr id="dataview-table-items-row">
+		<td>
+			{{status}}
+		</td>
+		<td>
+			{{user_name}}
+		</td>
+	</tr>
 </template>
 
