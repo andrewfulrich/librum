@@ -42,8 +42,5 @@ accounts-twitter
 perak:joins
 ejson
 random
-meteorhacks:npm
 
 
-npm-container
-meteorhacks:async
