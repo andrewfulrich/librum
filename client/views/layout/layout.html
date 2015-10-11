@@ -88,11 +88,11 @@
 <template name="PublicLayoutLeftMenu">
 	<ul id="menu-items" class="nav navbar-nav">
 		<li id="menu-item-simple" class="{{menuItemClass 'home_public'}}">
-			<a href="{{pathFor 'home_public'}}">
+			<!-- <a href="{{pathFor 'home_public'}}">
 				<span class="item-title">
 					Home
 				</span>
-			</a>
+			</a> -->
 		</li>
 	</ul>
 </template>
@@ -132,7 +132,7 @@
 						<span class="icon-bar">
 						</span>
 					</button>
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="{{pathFor 'home_private'}}">
 						<img src="images/TinyLogos/FanFetch.png" style="width:130px; margin-top:-12px">
 					</a>
 				</div>
@@ -156,11 +156,11 @@
 <template name="PrivateLayoutLeftMenu">
 	<ul id="menu-items" class="nav navbar-nav">
 		<li id="menu-item-simple" class="{{menuItemClass 'home_private'}}">
-			<a href="{{pathFor 'home_private'}}">
+			<!-- <a href="{{pathFor 'home_private'}}">
 				<span class="item-title">
 					Home
 				</span>
-			</a>
+			</a> -->
 		</li>
 		<li id="menu-item-simple" class="{{menuItemClass 'venue_admin'}}">
 			<a href="{{pathFor 'venue_admin'}}">
@@ -202,7 +202,7 @@
 
 <template name="PrivateLayoutRightMenu">
 	<ul id="menu-items" class="nav navbar-nav navbar-right">
-		<li id="menu-item-dropdown" class="dropdown ">
+		<li id="menu-item-dropdown" class="dropdown " style="margin-right:10px">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				<span class="item-title">
 					{{userEmail}}
@@ -227,5 +227,16 @@
 				</li>
 			</ul>
 		</li>
+		<li id="menu-item-simple" class="{{menuItemClass 'home_private'}}">
+			<a href="#" style="padding:10px">
+				<img src="images/TinyLogos/cart3.png"
+				style="
+				display:inline-block;
+				width:40px;
+				background-color:#1a242f; ">
+			</a>
+
+		</li>
 	</ul>
+
 </template>
