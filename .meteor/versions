@@ -74,7 +74,6 @@ natestrauser:font-awesome@4.4.0
 nemo64:bootstrap@3.3.5_2
 nemo64:bootstrap-data@3.3.5
 npm-bcrypt@0.7.8_2
-npm-container@1.2.0
 npm-mongo@1.4.39_1
 oauth@1.1.6
 oauth1@1.1.5

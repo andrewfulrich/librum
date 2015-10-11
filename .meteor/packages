@@ -45,5 +45,7 @@ random
 meteorhacks:npm
 
 
-npm-container
 meteorhacks:async
+
+
+npm-container
