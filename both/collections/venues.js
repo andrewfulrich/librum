@@ -19,6 +19,12 @@ this.Schemas.Venues = new SimpleSchema({
 		label: "Venue Name",
 		type: String,
 		optional: true
+	},
+	sections: {
+		label: "Sections",
+		type: [Object],
+		blackbox: true,
+		optional: true
 	}
 });
 

@@ -22,7 +22,10 @@ var privateRoutes = [
 	"user_settings.payment_methods",
 	"logout",
 	"events",
-	"products_menu"
+	"products_menu",
+	"event_seating",
+	"venue_admin",
+	"venue_admin.add_venue"
 ];
 
 var freeRoutes = [
@@ -189,4 +192,7 @@ Router.map(function () {
 	this.route("logout", {path: "/logout", controller: "LogoutController"});
 	this.route("events", {path: "/events", controller: "EventsController"});
 	this.route("products_menu", {path: "/products_menu", controller: "ProductsMenuController"});
+	this.route("event_seating", {path: "/event_seating", controller: "EventSeatingController"});
+	this.route("venue_admin", {path: "/venue_admin", controller: "VenueAdminController"});
+	this.route("venue_admin.add_venue", {path: "/venue_admin/add_venue", controller: "VenueAdminAddVenueController"});
 });

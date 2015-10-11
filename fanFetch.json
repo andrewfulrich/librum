@@ -50,6 +50,35 @@
 						"name": "venueName",
 						"title": "Venue Name",
 						"type": "string"
+					},
+					{
+						"name": "sections",
+						"type": "array",
+						"crud_fields": [
+                          	{
+								"name": "sectionName",
+								"title": "Section Name",
+								"type": "string"
+							},
+							{
+								"name": "seats",
+								"title": "Seat",
+								"type": "array",
+								"input": "crud",
+								"array_item_type": "object",
+								"crud_fields": [
+									{
+										"name": "seatNumber",
+										"title": "Seat Number",
+										"type": "string"
+									}
+								]
+							}
+							
+						],
+						"title": "Sections",
+						"input": "crud",
+						"array_item_type": "object"
 					}
 				]
 			},
@@ -161,6 +190,18 @@
 			{
 				"name": "products_list",
 				"collection": "products"
+			},
+			{
+				"name": "venuesList",
+				"collection": "venues"
+			},
+			{
+				"name": "addVenueQuery",
+				"collection": "venues",
+				"filter": {
+					"_id": null
+				},
+				"find_one": true
 			}
 		],
 		"public_zone": {
@@ -348,6 +389,43 @@
 							"type": "data_view"
 						}
 					]
+				},
+				{
+					"name": "event_seating",
+					"title": "Where is your seat?",
+					"type": "page"
+				},
+				{
+					"name": "venue_admin",
+					"type": "page",
+					"components": [
+						{
+							"name": "venueAdminView",
+							"type": "data_view",
+							"title": "Venues",
+							"query_name": "venuesList",
+							"insert_route": "venue_admin.add_venue"
+						}
+					],
+					"pages": [
+						{
+							"name": "add_venue",
+							"query_name": "addVenueQuery",
+							"type": "page",
+							"components": [
+								{
+									"name": "add_venue_form",
+									"mode": "insert",
+									"submit_route": "venue_admin",
+									"cancel_route": "venue_admin",
+									"close_route": "venue_admin",
+									"type": "form",
+									"query_name": "addVenueQuery"
+								}
+							]
+						}
+					],
+					"title": "Venue Admin"
 				}
 			],
 			"components": [
@@ -389,9 +467,9 @@
 		},
 		"roles": [
 			"venueAdmin",
-                        "eventAdmin",
-                        "vendorAdmin",
-                        "user",
+			"eventAdmin",
+			"vendorAdmin",
+			"user"
 		],
 		"use_collection2": true,
 		"free_zone": {
