@@ -167,7 +167,7 @@
 
 <template name="PrivateLayoutRightMenu">
 	<ul id="menu-items" class="nav navbar-nav navbar-right">
-		<li id="menu-item-dropdown" class="dropdown ">
+		<li id="menu-item-dropdown" class="dropdown " style="margin-right:10px">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				<span class="item-title">
 					{{userEmail}}
@@ -189,16 +189,18 @@
 							Logout
 						</span>
 					</a>
-				</li>				
+				</li>
 			</ul>
 		</li>
 		<li id="menu-item-simple" class="{{menuItemClass 'home_private'}}">
-			 <a href="{{pathFor 'home_private'}}">
-				<span class="item-title">
-					<img src="images/TinyLogos/ShoppingCart2.png" style="margin-top:-12px">
-				</span>
-			</a> 
+			<a href="#" style="padding:0px">
+				<img src="images/TinyLogos/cart.png"
+				style="margin-top:-12px;
+				display:inline-block;
+				width:80px;
+				<!-- background-color:#1a242f -->">
+			</a>
 		</li>
 	</ul>
-	
+
 </template>
