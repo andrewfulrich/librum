@@ -28,7 +28,8 @@
 						"input": "select",
 						"lookup_query_name": "venuesList",
 						"lookup_key": "_id",
-						"lookup_field": "venueName"
+						"lookup_field": "venueName",
+						"show_in_dataview": false
 					},
 					{
 						"name": "eventImage",
