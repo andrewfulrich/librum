@@ -22,7 +22,7 @@ var privateRoutes = [
 	"user_settings.payment_methods",
 	"logout",
 	"events",
-	"products_menu",
+	"venue_menu",
 	"event_seating",
 	"venue_admin",
 	"venue_admin.add_venue",
@@ -30,7 +30,11 @@ var privateRoutes = [
 	"event_admin",
 	"section_seating_admin",
 	"vendor_admin",
-	"product_admin"
+	"product_admin",
+	"runner_status_admin",
+	"runner_state_admin",
+	"runner_selection",
+	"orders_admin"
 ];
 
 var freeRoutes = [
@@ -196,7 +200,7 @@ Router.map(function () {
 	this.route("user_settings.payment_methods", {path: "/user_settings/payment_methods", controller: "UserSettingsPaymentMethodsController"});
 	this.route("logout", {path: "/logout", controller: "LogoutController"});
 	this.route("events", {path: "/events", controller: "EventsController"});
-	this.route("products_menu", {path: "/products_menu", controller: "ProductsMenuController"});
+	this.route("venue_menu", {path: "/venue_menu", controller: "VenueMenuController"});
 	this.route("event_seating", {path: "/event_seating/:venue_id", controller: "EventSeatingController"});
 	this.route("venue_admin", {path: "/venue_admin", controller: "VenueAdminController"});
 	this.route("venue_admin.add_venue", {path: "/venue_admin/add_venue", controller: "VenueAdminAddVenueController"});
@@ -205,4 +209,8 @@ Router.map(function () {
 	this.route("section_seating_admin", {path: "/section_seating_admin", controller: "SectionSeatingAdminController"});
 	this.route("vendor_admin", {path: "/vendor_admin", controller: "VendorAdminController"});
 	this.route("product_admin", {path: "/product_admin", controller: "ProductAdminController"});
+	this.route("runner_status_admin", {path: "/runner_status_admin", controller: "RunnerStatusAdminController"});
+	this.route("runner_state_admin", {path: "/runner_state_admin", controller: "RunnerStateAdminController"});
+	this.route("runner_selection", {path: "/runner_selection", controller: "RunnerSelectionController"});
+	this.route("orders_admin", {path: "/orders_admin", controller: "OrdersAdminController"});
 });

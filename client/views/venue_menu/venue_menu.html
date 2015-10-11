@@ -1,4 +1,4 @@
-<template name="ProductsMenu">
+<template name="VenueMenu">
 	<div class="page-container container" id="content">
 		<div class="row" id="title_row">
 			<div class="col-md-12">
@@ -9,11 +9,11 @@
 				</div>
 			</div>
 		</div>
-		{{> ProductsMenuMenuItems}}
+		{{> VenueMenuMenuItems}}
 	</div>
 </template>
 
-<template name="ProductsMenuMenuItems">
+<template name="VenueMenuMenuItems">
 	<div id="data_view" class="">
 		<form id="dataview-controls" class="form-inline">
 			<div id="dataview-controls-search">
@@ -38,7 +38,7 @@
 		</div>
 		{{else}}
 		<div id="dataview-data">
-			{{#if viewAsTable}} {{> ProductsMenuMenuItemsTable}} {{/if}}
+			{{#if viewAsTable}} {{> VenueMenuMenuItemsTable}} {{/if}}
 		</div>
 		{{/if}}	
 		{{else}}
@@ -49,7 +49,7 @@
 	</div>
 </template>
 
-<template name="ProductsMenuMenuItemsTable">
+<template name="VenueMenuMenuItemsTable">
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
@@ -68,12 +68,12 @@
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> ProductsMenuMenuItemsTableItems}} {{/each}}
+			{{#each tableItems}} {{> VenueMenuMenuItemsTableItems}} {{/each}}
 		</tbody>
 	</table>
 </template>
 
-<template name="ProductsMenuMenuItemsTableItems">
+<template name="VenueMenuMenuItemsTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
 			{{productName}}
@@ -82,10 +82,10 @@
 			{{productVendor}}
 		</td>
 		<td>
-			${{productPrice}}.00
+			{{productPrice}}
 		</td>
 		<td>
-			<img src="{{productImage}}">
+			{{productImage}}
 		</td>
 	</tr>
 </template>

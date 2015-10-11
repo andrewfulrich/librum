@@ -14,3 +14,7 @@ Orders.join(Users, "runner", "", []);
 // VenueSections
 VenueSections.join(Venues, "venue_id", "", []);
 
+// RunnerStatus
+RunnerStatus.join(Users, "user_id", "", []);
+RunnerStatus.join(RunnerStates, "status", "", []);
+

@@ -1,25 +1,25 @@
 var pageSession = new ReactiveDict();
 
-Template.Events.rendered = function() {
+Template.VenueMenu.rendered = function() {
 	
 };
 
-Template.Events.events({
+Template.VenueMenu.events({
 	
 });
 
-Template.Events.helpers({
+Template.VenueMenu.helpers({
 	
 });
 
-var EventsEventsItems = function(cursor) {
+var VenueMenuMenuItemsItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("EventsEventsSearchString");
-	var sortBy = pageSession.get("EventsEventsSortBy");
-	var sortAscending = pageSession.get("EventsEventsSortAscending");
+	var searchString = pageSession.get("VenueMenuMenuItemsSearchString");
+	var sortBy = pageSession.get("VenueMenuMenuItemsSortBy");
+	var sortAscending = pageSession.get("VenueMenuMenuItemsSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -31,7 +31,7 @@ var EventsEventsItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["eventName", "venue", "eventImage", "venueName"];
+		var searchFields = ["productName", "productVendor", "productPrice", "productImage"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -59,8 +59,8 @@ var EventsEventsItems = function(cursor) {
 	return filtered;
 };
 
-var EventsEventsExport = function(cursor, fileType) {
-	var data = EventsEventsItems(cursor);
+var VenueMenuMenuItemsExport = function(cursor, fileType) {
+	var data = VenueMenuMenuItemsItems(cursor);
 	var exportFields = [];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
@@ -71,12 +71,12 @@ var EventsEventsExport = function(cursor, fileType) {
 }
 
 
-Template.EventsEvents.rendered = function() {
-	pageSession.set("EventsEventsStyle", "table");
+Template.VenueMenuMenuItems.rendered = function() {
+	pageSession.set("VenueMenuMenuItemsStyle", "table");
 	
 };
 
-Template.EventsEvents.events({
+Template.VenueMenuMenuItems.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -89,7 +89,7 @@ Template.EventsEvents.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("EventsEventsSearchString", searchString);
+				pageSession.set("VenueMenuMenuItemsSearchString", searchString);
 			}
 
 		}
@@ -105,7 +105,7 @@ Template.EventsEvents.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("EventsEventsSearchString", searchString);
+					pageSession.set("VenueMenuMenuItemsSearchString", searchString);
 				}
 
 			}
@@ -120,7 +120,7 @@ Template.EventsEvents.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("EventsEventsSearchString", "");
+					pageSession.set("VenueMenuMenuItemsSearchString", "");
 				}
 
 			}
@@ -137,91 +137,91 @@ Template.EventsEvents.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		EventsEventsExport(this.events_list, "csv");
+		VenueMenuMenuItemsExport(this.products_list, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		EventsEventsExport(this.events_list, "csv");
+		VenueMenuMenuItemsExport(this.products_list, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		EventsEventsExport(this.events_list, "tsv");
+		VenueMenuMenuItemsExport(this.products_list, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		EventsEventsExport(this.events_list, "json");
+		VenueMenuMenuItemsExport(this.products_list, "json");
 	}
 
 	
 });
 
-Template.EventsEvents.helpers({
+Template.VenueMenuMenuItems.helpers({
 
 	"insertButtonClass": function() {
-		return Events.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
+		return Products.userCanInsert(Meteor.userId(), {}) ? "" : "hidden";
 	},
 
 	"isEmpty": function() {
-		return !this.events_list || this.events_list.count() == 0;
+		return !this.products_list || this.products_list.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.events_list && this.events_list.count() > 0;
+		return this.products_list && this.products_list.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.events_list && pageSession.get("EventsEventsSearchString") && EventsEventsItems(this.events_list).length == 0;
+		return this.products_list && pageSession.get("VenueMenuMenuItemsSearchString") && VenueMenuMenuItemsItems(this.products_list).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("EventsEventsSearchString");
+		return pageSession.get("VenueMenuMenuItemsSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("EventsEventsStyle") == "table";
+		return pageSession.get("VenueMenuMenuItemsStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("EventsEventsStyle") == "list";
+		return pageSession.get("VenueMenuMenuItemsStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("EventsEventsStyle") == "gallery";
+		return pageSession.get("VenueMenuMenuItemsStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.EventsEventsTable.rendered = function() {
+Template.VenueMenuMenuItemsTable.rendered = function() {
 	
 };
 
-Template.EventsEventsTable.events({
+Template.VenueMenuMenuItemsTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("EventsEventsSortBy");
+		var oldSortBy = pageSession.get("VenueMenuMenuItemsSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("EventsEventsSortBy", newSortBy);
+		pageSession.set("VenueMenuMenuItemsSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("EventsEventsSortAscending") || false;
-			pageSession.set("EventsEventsSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("VenueMenuMenuItemsSortAscending") || false;
+			pageSession.set("VenueMenuMenuItemsSortAscending", !sortAscending);
 		} else {
-			pageSession.set("EventsEventsSortAscending", true);
+			pageSession.set("VenueMenuMenuItemsSortAscending", true);
 		}
 	}
 });
 
-Template.EventsEventsTable.helpers({
+Template.VenueMenuMenuItemsTable.helpers({
 	"tableItems": function() {
-		return EventsEventsItems(this.events_list);
+		return VenueMenuMenuItemsItems(this.products_list);
 	}
 });
 
 
-Template.EventsEventsTableItems.rendered = function() {
+Template.VenueMenuMenuItemsTableItems.rendered = function() {
 	
 };
 
-Template.EventsEventsTableItems.events({
+Template.VenueMenuMenuItemsTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
 		/**/
@@ -239,7 +239,7 @@ Template.EventsEventsTableItems.events({
 		var values = {};
 		values[fieldName] = !this[fieldName];
 
-		Events.update({ _id: this._id }, { $set: values });
+		Products.update({ _id: this._id }, { $set: values });
 
 		return false;
 	},
@@ -256,7 +256,7 @@ Template.EventsEventsTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						Events.remove({ _id: me._id });
+						Products.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -274,13 +274,13 @@ Template.EventsEventsTableItems.events({
 	}
 });
 
-Template.EventsEventsTableItems.helpers({
+Template.VenueMenuMenuItemsTableItems.helpers({
 	"checked": function(value) { return value ? "checked" : "" }, 
 	"editButtonClass": function() {
-		return Events.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
+		return Products.userCanUpdate(Meteor.userId(), this) ? "" : "hidden";
 	},
 
 	"deleteButtonClass": function() {
-		return Events.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
+		return Products.userCanRemove(Meteor.userId(), this) ? "" : "hidden";
 	}
 });
